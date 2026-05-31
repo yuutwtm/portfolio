@@ -38,9 +38,9 @@
     /* ─── Design Tokens — blue palette ──────────────────────── */
     :root {
       --bg:        #FAFAFA;       /* cool off-white */
-      --text:      #333333;       /* dark grey      */
-      --muted:     #0818A8;       /* zaffre                           */
-      --pop:       #89CFF0;       /* baby blue                        */
+      --text:      #000;       /* moma inspired black                  */
+      --muted:     #333;       /* moma inspired black                  */
+      --pop:       #000;       /* moma inspired black                  */
       --pop-hover: #960d5f;
       --toggle-en: #CCCCFF;       /* periwinkle track for EN          */
       --toggle-ko: #B6D0E2;       /* powder blue track for KO         */
@@ -266,9 +266,10 @@
 
     .section-label {
       font-size:      1.5rem;       /* bigger than before */
-      font-weight:    300;
+      font-weight:  700;
       letter-spacing: var(--ls-label);
       text-transform: lowercase;
+      font-family: "futura-100", sans-serif;
       letter-spacing: -0.03em;
       color:          var(--pop);
     }
@@ -361,7 +362,8 @@
       padding:        0.2rem 0.6rem;
       border-radius:  2px;
       letter-spacing: 0em;
-      font-family: "basic sans", sans-serif;
+      font-family: "futura-100", sans-serif;
+      font-weight:  700;
     }
 
     /* ─── Links ──────────────────────────────────────────────── */

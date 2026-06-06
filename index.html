@@ -78,6 +78,12 @@
             letter-spacing: -0.03em;
             text-transform: capitalize;
             margin-bottom: 10px;
+            -webkit-hyphens: auto; /* Required for Safari/iOS */
+    -ms-hyphens: auto;     /* Required for Edge/IE */
+    hyphens: auto;         /* Standard property */
+    
+    /* Ensure word-break is set to allow these breaks */
+    word-break: break-word;
         }
 
         .role-subtitle {
@@ -266,7 +272,7 @@
         <h1 class="site-title" lang="en">yuutalkwaytoomuch.pages.dev</h1>
         <h1 class="site-title" lang="ko">yuutalkwaytoomuch.pages.dev</h1>
         
-        <div class="role-subtitle" lang="en"><style="font-weight: 600">Yugyoung Joan Sung</style> — Educator · Independent Researcher — Sejong, KR</div>
+        <div class="role-subtitle" lang="en"><b>Yugyoung Joan Sung</b> — Educator · Independent Researcher — Sejong, KR</div>
         <div class="role-subtitle" lang="ko"><b>성유경</b> — 교육자 · 독립연구가 — 세종</div>
     </header-container>
 

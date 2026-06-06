@@ -18,7 +18,7 @@
             --text-color: #111111;
             --text-muted: #222222;
             --border-color: #e5e5e5;
-            --text-highlight: #009EB3;
+            --text-highlight: #F2CB14;
             --shadow-spread: 0 12px 40px rgba(0, 0, 0, 0.06);
             --font-display: "franklin-gothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
             --font-body: "franklin-gothic-std", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
@@ -205,21 +205,22 @@
         }
 
         /* Apply styles to links, but exclude those in the contact-list */
-a:not(.contact-list a) {
-    color: inherit; /* Keeps the text color */
-    text-decoration: underline;
-    text-decoration-color: var(--text-color);
-    transition: background-color 0.2s ease;
-    padding: 0 2px; /* Adds a tiny bit of breathing room for the highlight */
-    border-radius: 2px;
-}
+        a:not(.contact-list a) {
+            color: inherit; /* Keeps the text color */
+            text-decoration: underline;
+            text-decoration-color: var(--text-color);
+            transition: background-color 0.2s ease;
+            padding: 0 2px; /* Adds a tiny bit of breathing room for the highlight */
+            border-radius: 2px;
+            }
 
-/* Hover state for those specific links */
-a:not(.contact-list a):hover {
-    background-color: var(--text-highlight);
-    text-decoration: underline;
-    text-decoration-color: var(--text-color);
-}
+            /* Hover state for those specific links */
+            a:not(.contact-list a):hover {
+            background-color: var(--text-highlight);
+            text-decoration: underline;
+            text-transform: italic;
+            text-decoration-color: var(--text-color);
+            }
 
         /* Footer Metadata */
         footer {

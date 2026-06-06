@@ -1,855 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <!-- Replace /favicon.ico with the path to your image if it's in a subfolder -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-  
-<script>
-  (function(d) {
-    var config = {
-      kitId: 'crq7oqb',
-      scriptTimeout: 3000,
-      async: true
-    },
-    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-  })(document);
-</script>
-
-
-  
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yugyoung Joan Sung — CV</title>
-  <link rel="stylesheet" href="https://use.typekit.net/crq7oqb.css" />
-
-  <style>
-  
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-.sidebar-avatar.spinning {
-  animation: spin 0.6s cubic-bezier(.4,0,.2,1) 1;
-}
-
-    /* ─── Design Tokens — blue palette ──────────────────────── */
-    :root {
-      --bg:        #FAFAFA;       /* cool off-white */
-      --text:      #000;       /* moma inspired black                  */
-      --muted:     #333;       /* moma inspired black                  */
-      --pop:       #000;       /* moma inspired black                  */
-      --pop-hover: #960d5f;
-      --toggle-en: #CCCCFF;       /* periwinkle track for EN          */
-      --toggle-ko: #B6D0E2;       /* powder blue track for KO         */
-
-      --font:      "basic-sans", "tiffin-latin-variable", "source-han-sans-korean", sans-serif;
-      --ls-tight:  -0.02em;
-      --ls-label:   0.05em;
-      --radius-img: 3px;
-      --sidebar-w:  400px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background:     var(--bg);
-      color:          var(--text);
-      font-family:    var(--font);
-      font-size:      clamp(1.2rem, 1.4vw, 1.6rem);
-      line-height:    1.7;
-      letter-spacing: var(--ls-tight);
-      display:        flex;
-      flex-direction: column;
-    }
-
-    /* ─── Lang switch bar ────────────────────────────────────── */
-    :root { --bar-h: 36px; }
-
-    .lang-bar {
-      position:        relative;
-      z-index:         100;
-      flex-shrink:     0;
-      display:         flex;
-      justify-content: flex-end;
-      align-items:     center;
-      height:          var(--bar-h);
-      padding:         0 1.6rem;
-      background:      var(--bg);
-      border-bottom:   0px solid color-mix(in srgb, var(--muted) 14%, transparent);
-      backdrop-filter: blur(6px);
-      gap:             0.55rem;
-    }
-
-    /* Flag labels flanking the toggle */
-    .lang-flag {
-      font-size:   0.95rem;
-      line-height: 1;
-      user-select: none;
-      opacity:     0.35;
-      transition:  opacity 0.22s ease;
-    }
-    .lang-flag.active { opacity: 1; }
-
-    /* iOS-style toggle — smaller: 34×20px */
-    .ios-toggle {
-      position:    relative;
-      width:       34px;
-      height:      20px;
-      cursor:      pointer;
-      flex-shrink: 0;
-    }
-
-    .ios-toggle input {
-      position: absolute;
-      inset:    0;
-      opacity:  0;
-      width:    100%;
-      height:   100%;
-      margin:   0;
-      cursor:   pointer;
-      z-index:  1;
-    }
-
-    /* EN (unchecked) = white/light track with border; KO (checked) = blue */
-    .ios-track {
-      position:      absolute;
-      inset:         0;
-      border-radius: 10px;
-      background:    var(--toggle-en);
-      border:        1.5px solid color-mix(in srgb, var(--muted) 22%, transparent);
-      transition:    background 0.24s ease, border-color 0.24s ease;
-    }
-
-    .ios-toggle input:checked ~ .ios-track {
-      background:  var(--toggle-ko);
-      border-color: var(--toggle-ko);
-    }
-
-    /* Thumb — proportional to smaller track */
-    .ios-thumb {
-      position:      absolute;
-      top:           3px;
-      left:          3px;
-      width:         14px;
-      height:        14px;
-      border-radius: 50%;
-      background:    #fff;
-      box-shadow:    0 1px 3px rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.06);
-      transition:    transform 0.24s cubic-bezier(.4,0,.2,1);
-    }
-
-    .ios-toggle input:checked ~ .ios-thumb {
-      transform: translateX(14px);
-    }
-
-    .ios-toggle input:focus-visible ~ .ios-track {
-      outline:        2px solid var(--pop);
-      outline-offset: 2px;
-    }
-
-    /* ─── Page shell ─────────────────────────────────────────── */
-    .page {
-      display:               grid;
-      grid-template-columns: var(--sidebar-w) 1fr;
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       SIDEBAR
-    ════════════════════════════════════════════════════════════ */
-    .sidebar {
-      position:       relative;
-      height:         100%;
-      overflow-y:     auto;
-      padding:        2.8rem 2rem 2.8rem 2.4rem;
-      border-right:   1px solid color-mix(in srgb, var(--muted) 20%, transparent);
-      display:        flex;
-      flex-direction: column;
-      gap:            1.8rem;
-    }
-
-    .sidebar-name {
-      font-size:      clamp(2.5rem, 4.5vw, 3rem);
-      font-weight:  600;
-      font-family: "futura-100", sans-serif;
-      font-style:    italic;
-      line-height:    1.2;
-      letter-spacing: -0.03em;
-      word-break:  break-word;
-      padding: 0.8rem 0.8rem 0.8rem 0.8rem;
-    }
-
-    .sidebar-role {
-      font-size:    1.1rem;
-      color:        var(--muted);
-      letter-spacing: 0em;
-      margin-top:   0.65rem;
-      line-height:  1.5;
-      font-family: "tiffin-latin-variable", sans-serif; font-variation-settings: "wght" 300;
-    }
-
-    .sidebar-avatar {
-      width:           80px;
-      height:          80px;
-      aspect-ratio:  1 / 1;
-      object-fit:    cover;
-      border-radius: var(--radius-img);
-      display:       block;
-    }
-
-    .sidebar-contact {
-      display:        flex;
-      flex-direction: column;
-      gap:            0.38rem;
-      font-size:      1.2rem;
-      letter-spacing: 0em;
-      margin-top:     auto;
-    }
-
-    .sidebar-contact a {
-      color:           var(--muted);
-      text-decoration: none;
-      border-bottom:   none;
-      transition:      color 0.18s;
-    }
-    .sidebar-contact a:hover { color: var(--pop); }
-
-    .sidebar-footer {
-      font-size:    0.9rem;
-      color:        color-mix(in srgb, var(--muted) 55%, transparent);
-      letter-spacing: 0em;
-      padding-top:  1rem;
-      border-top:   1px solid color-mix(in srgb, var(--muted) 16%, transparent);
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       MAIN CONTENT
-    ════════════════════════════════════════════════════════════ */
-    .content {
-      padding:    3rem 3.5rem 5rem 3rem;
-      max-width:  740px;
-      overflow-y: auto;
-      height:     100%;
-    }
-
-    /* ─── Section / Accordion ───────────────────────────────── */
-    .section {
-      border-bottom: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
-    }
-
-    .section-toggle {
-      display:         flex;
-      align-items:     center;
-      justify-content: space-between;
-      width:           100%;
-      background:      none;
-      border:          none;
-      padding:         1.15rem 0;
-      cursor:          pointer;
-      text-align:      left;
-      color:           inherit;
-      font-family:     inherit;
-      gap:             1rem;
-    }
-
-    .section[data-open="always"] .section-toggle {
-      cursor:         default;
-      pointer-events: none;
-    }
-
-    .section-label {
-      font-size:      1.5rem;       /* bigger than before */
-      font-weight:  600;
-      letter-spacing: var(--ls-label);
-      font-family: "futura-100", sans-serif;
-      letter-spacing: -0.01em;
-      color:          var(--pop);
-    }
-
-    .section-chevron {
-      width:      15px;
-      height:     15px;
-      flex-shrink: 0;
-      color:      var(--muted);
-      transition: transform 0.28s ease;
-    }
-
-    .section[data-open="always"] .section-chevron { display: none; }
-
-    .section.is-open .section-chevron { transform: rotate(180deg); }
-
-    .section-body {
-      display:        grid;
-      gap:            1.2rem;
-      overflow:       hidden;
-      max-height:     0;
-      opacity:        0;
-      padding-bottom: 0;
-      transition:     max-height 0.38s ease, opacity 0.28s ease, padding-bottom 0.28s ease;
-      font-family: "tiffin-latin-variable", sans-serif; font-variation-settings: "wght" 300;
-    }
-
-    .section[data-open="always"] .section-body {
-      max-height:     none;
-      opacity:        1;
-      padding-bottom: 1.5rem;
-    }
-
-    .section.is-open .section-body {
-      max-height:     2000px;
-      opacity:        1;
-      padding-bottom: 1.5rem;
-    }
-
-    /* ─── Entry ─────────────────────────────────────────────── */
-    .entry {
-      display:               grid;
-      /* grid-template-columns: 1fr auto; */
-      gap:                   0 1rem;
-      row-gap:               0.18rem;
-      font-family: basic-sans, sans-serif;
-    }
-
-    .entry-title {
-      font-weight:    700;
-      font-size:      1.4rem;          /* bumped */
-      letter-spacing: -0.02em;
-      grid-column:    1;
-    }
-
-    .entry-meta {
-      color:       var(--muted);
-      font-size:   0.9rem;          /* bumped */
-      grid-column: 1;
-    }
-
-    .entry-date {
-      font-size:    1rem;
-      color:        var(--muted);
-      grid-column:  2;
-      grid-row:     1;
-      text-align:   right;
-      white-space:  nowrap;
-      padding-top:  0.15rem;
-      letter-spacing: 0em;
-    }
-
-    .entry-body {
-      grid-column: 1 / -1;
-      font-size:   1.2rem;          /* bumped */
-      color:       color-mix(in srgb, var(--text) 75%, var(--bg));
-      margin-top:  0.3rem;
-      font-family: "tiffin-latin-variable", sans-serif; font-variation-settings: "wght" 300;
-    }
-
-    .entry-body ul { padding-left: 1.1rem; display: grid; gap: 0.22rem; }
-
-    /* ─── Skills ─────────────────────────────────────────────── */
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-
-    .skill-tag {
-      background:     color-mix(in srgb, var(--muted) 11%, var(--bg));
-      color:          var(--text);
-      font-size:      0.9rem;
-      padding:        0.2rem 0.6rem;
-      border-radius:  2px;
-      letter-spacing: 0em;
-      font-family: "futura-100", sans-serif;
-      font-weight:  600;
-    }
-
-    /* ─── Links ──────────────────────────────────────────────── */
-    a {
-      color:           var(--text);
-      text-decoration: none;
-      border-bottom:   1px solid color-mix(in srgb, var(--muted) 35%, transparent);
-      transition:      color 0.18s ease, border-color 0.18s ease;
-    }
-
-    a:hover {
-      color:               var(--pop);
-      border-bottom-color: var(--pop);
-    }
-
-    /* ─── Language visibility ────────────────────────────────── */
-    [lang-content="ko"] { display: none; }
-    body.lang-ko [lang-content="en"] { display: none; font-family: "futura-100", sans-serif; }
-    body.lang-ko [lang-content="ko"] { display: revert; font-family: "futura-100", sans-serif; }
-
-    /* ═══════════════════════════════════════════════════════════
-       DESKTOP ≥ 769px — locked viewport, internal scroll
-    ═══════════════════════════════════════════════════════════ */
-    @media (min-width: 769px) {
-      html, body {
-        height:   100%;
-        overflow: hidden;
-      }
-
-      .page {
-        flex:        1 1 0;
-        min-height:  0;
-      }
-
-      /* Hide scrollbars on webkit/blink (sidebar + content) */
-      .sidebar::-webkit-scrollbar,
-      .content::-webkit-scrollbar { display: none; }
-      .sidebar, .content          { scrollbar-width: none; }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       MOBILE ≤ 768px
-    ═══════════════════════════════════════════════════════════ */
-    @media (max-width: 768px) {
-
-.entry-body ul {
-  padding-left: 3rem;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.entry-body {
-  overflow: hidden;
-  max-width: 100%;
-}
-
-  html, body {
-     height: auto !important;
-     overflow: auto !important;
-  }
-        
-      .lang-bar { padding: 0 1.2rem; }
-
-      .page {
-        grid-template-columns: 1fr;
-        grid-template-rows:    auto 1fr;
-        height: auto !important;       /* natural scroll on mobile */
-        overflow: visible !important;
-      }
-
-      .sidebar {
-        position:       static;
-        height:         auto;
-        overflow:       visible;
-        padding:        1.8rem 1.4rem 1.4rem;
-        border-right:   none;
-        border-bottom:  1px solid color-mix(in srgb, var(--muted) 14%, transparent);
-        flex-direction: row;
-        flex-wrap:      wrap;
-        align-items:    flex-start;
-        gap:            1.2rem;
-        font-size:      1rem;
-        height: auto !important;
-        overflow: visible !important;
-      }
-
-      .sidebar-avatar {
-        width:  60px;
-        height: 60px;
-        aspect-ratio: 1 / 1;
-        flex-shrink:  0;
-        flex-basis: auto;
-      }
-
-      .sidebar-name { font-size: clamp(3rem, 10vw, 4rem); } /*  clamp(2rem, 8vw, 3rem) */
-      .sidebar-title-block { flex: 1 1 160px; }
-
-      .sidebar-contact {
-        width:          100%;
-        flex-direction: row;
-        flex-wrap:      wrap;
-        gap:            0.3rem 1rem;
-        margin-top:     0;
-        font-size:      1.2rem;
-      }
-
-      .sidebar-footer { width: 100%; }
-
-      .content {
-        padding:    2rem 1.4rem 4rem;
-        max-width:  100%;
-        height:     auto;
-        overflow-y: visible;
-        font-size:  1.4rem;
-        height: auto !important;
-       overflow-y: visible !important;
-      }
-
-      .entry { grid-template-columns: 1fr; }
-      .entry-date { grid-column: 1; grid-row: auto; text-align: left; }
-    }
-
-    @media (max-width: 420px) {
-      .sidebar { padding: 1.4rem 1.1rem 1.1rem; }
-      .content  { padding: 1.4rem 1.1rem 3rem; }
-    }
-  </style>
+    <link rel="stylesheet" href="https://use.typekit.net/lka8xjw.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUGYOUNG JOAN SUNG</title>
+    <style>
+        /* CSS Reset & System-wide Variables */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-color: #FFFEFE; /* Apple-style soft, non-pure white */
+            --text-color: #111111;
+            --text-muted: #333333;
+            --border-color: #e5e5e5;
+            --shadow-spread: 0 12px 40px rgba(0, 0, 0, 0.06);
+            --font-display: "franklin-gothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: "franklin-gothic-std", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 40px 60px 80px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Language Toggle - iOS Style Floating / Top-right */
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .lang-toggle {
+            display: inline-flex;
+            background-color: rgba(0, 0, 0, 0.04);
+            padding: 4px;
+            border-radius: 9999px; /* Will dynamic wrap to oval half-height */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+
+        .lang-btn.active {
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* MoMA Layout - Giant Bold Typography */
+        h1.site-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(3.5rem, 8vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            text-transform: capitalize;
+            margin-bottom: 10px;
+        }
+
+        .role-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: -0.02em;
+            margin-bottom: 80px;
+        }
+
+        /* Asymmetric Layout Infrastructure */
+        .section-row {
+            display: grid;
+            grid-template-columns: 3.5fr 6.5fr;
+            border-top: 2px solid var(--text-color);
+            padding-top: 25px;
+            margin-bottom: 90px;
+        }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            line-height: 1.1;
+            text-transform: capitalize;
+            letter-spacing: -0.02em;
+            padding-right: 40px;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            font-size: 1.35rem; /* Large text format matching reference */
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--text-color);
+        }
+
+        /* Copy Block Adjustments */
+        .lead-paragraph {
+            font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+            line-height: 1.45;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: #000;
+        }
+
+        .lead-paragraph:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Timeline & List Styles */
+        .timeline-item {
+            margin-bottom: 50px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .item-institution {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .item-details {
+            list-style-type: none;
+        }
+
+        .item-details li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        .item-details li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+
+        /* Links and Buttons (Apple & MoMA style integrated seamlessly) */
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-link {
+            display: inline-block;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.25rem;
+            padding: 12px 28px;
+            border: 1.5px solid var(--text-color);
+            border-radius: 9999px; /* Perfect oval capsule rule */
+            transition: all 0.25s ease;
+            background-color: transparent;
+        }
+
+        .contact-link:hover {
+            background-color: var(--text-color);
+            color: #ffffff;
+            box-shadow: var(--shadow-spread);
+            transform: translateY(-2px);
+        }
+
+        /* Footer Metadata */
+        footer {
+            margin-top: 120px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* Language Toggle Switcher engine conditional views */
+        [lang="ko"] {
+            display: none;
+        }
+
+        html[data-lang="ko"] [lang="en"] {
+            display: none;
+        }
+
+        html[data-lang="ko"] [lang="ko"] {
+            display: block;
+        }
+
+        /* Responsive Breakpoint for Mobile Re-arrangement */
+        @media (max-width: 868px) {
+            body {
+                padding: 24px 24px 60px 24px;
+            }
+            .top-bar {
+                margin-bottom: 40px;
+            }
+            .section-row {
+                grid-template-columns: 1fr;
+                margin-bottom: 60px;
+                gap: 10px;
+            }
+            .section-label {
+                padding-right: 0;
+            }
+            .item-meta {
+                flex-direction: column;
+                gap: 4px;
+            }
+            footer {
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 80px;
+            }
+        }
+    </style>
 </head>
+<body>
 
-<body class="lang-en">
-
-  <!-- ── Language switch bar ──────────────────────────────── -->
-  <div class="lang-bar" role="navigation" aria-label="Language">
-    <span class="lang-flag active" id="flag-en" aria-hidden="true">🇬🇧</span>
-
-    <label class="ios-toggle" aria-label="Switch language between English and Korean">
-      <input type="checkbox" id="lang-toggle" role="switch" aria-checked="false" />
-      <span class="ios-track"></span>
-      <span class="ios-thumb"></span>
-    </label>
-
-    <span class="lang-flag" id="flag-ko" aria-hidden="true">🇰🇷</span>
-  </div>
-
-  <div class="page">
-
-    <!-- ══════════════════════════════════════════════════════
-         SIDEBAR
-    ══════════════════════════════════════════════════════ -->
-    <aside class="sidebar">
-
-       <img
-        src="circle.png"
-        alt="yjs"
-        class="sidebar-avatar"
-        width="200"
-        height="200"
-        flex-basis: 100%; />
-     
-
-      <div class="sidebar-title-block">
-        <!-- English name / Korean name -->
-        <p class="sidebar-name">
-          <span lang-content="en">yugyoung<br>joan sung</span>
-          <span lang-content="ko">yugyoung<br>sung</span>
-        </p>
-        <p class="sidebar-role">
-          <span lang-content="en">Educator · Independent Researcher<br> Sejong, KR</span>
-          <span lang-content="ko">교육자 · 독립연구가<br>세종</span>
-        </p>
-      </div>
-
-      <nav class="sidebar-contact" aria-label="Contact">
-        <a href="mailto:jetpack6lues@yonsei.ac.kr">jetpack6lues@yonsei.ac.kr</a>
-        <a href="https://blog.naver.com/loveisalaserquest" target="_blank" rel="noopener">Blog (KR)</a>
-        <a href="https://github.com/yuutwtm" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://instagram.com/yuutalkwaytoomuch" target="_blank" rel="noopener">Instagram</a>
-      </nav>
-
-      <p class="sidebar-footer">
-        <span lang-content="en">Updated May 2026</span>
-        <span lang-content="ko">2026년 5월 업데이트</span>
-      </p>
-
-    </aside>
-
-    <!-- ══════════════════════════════════════════════════════
-         MAIN CONTENT
-    ══════════════════════════════════════════════════════ -->
-    <main class="content">
-
-      <!-- About — always open -->
-      <div class="section" data-open="always">
-        <div class="section-toggle" aria-expanded="true">
-          <span class="section-label">
-            <span lang-content="en">About</span>
-            <span lang-content="ko">소개</span>
-          </span>
+    <!-- iOS style language toggle -->
+    <div class="top-bar">
+        <div class="lang-toggle">
+            <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">🇬🇧</button>
+            <button class="lang-btn" id="btn-ko" onclick="setLanguage('ko')">🇰🇷</button>
         </div>
-        <div class="section-body">
-          <p lang-content="en">
-            I believe in the accountability of us adults in making our students ask better questions; in convincing them that some criticisms are indeed constructive; in providing them the adequate introduction into the public sphere; in, ultimately, engaging them with the world that will be theirs to protect. 
-            <br>My methods include, but are not limited to, critical reasoning, essay writing, designing presentations, all the while embracing technological advancements relevant to our end goal.
+    </div>
+
+    <!-- Header Section without strict structural header borders -->
+    <header-container>
+        <h1 class="site-title" lang="en">yugyoung joan sung</h1>
+        <h1 class="site-title" lang="ko">yugyoung sung</h1>
         
-          </p>
-          <p lang-content="ko">
-            자신이 누구인지, 무엇을 하는 사람인지에 대한 간결하고 명확한 소개문.
-            세 문장 이내로 — 요약이 아닌 정제된 언어로.
-          </p>
+        <div class="role-subtitle" lang="en">Educator · Independent Researcher — Sejong, KR</div>
+        <div class="role-subtitle" lang="ko">교육자 · 독립연구가 — 세종</div>
+    </header-container>
+
+    <main>
+ <!-- Contact Section / Integrated Action Elements -->
+        <div class="section-row" style="margin-bottom: 40px;">
+            <div class="section-label" lang="en">Connect</div>
+            <div class="section-label" lang="ko">연락처</div>
+            <div class="section-content">
+                <ul class="contact-list">
+                    <li><a href="mailto:jetpack6lues@yonsei.ac.kr" class="contact-link">Email</a></li>
+                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">Blog (KR)</a></li>
+                    <li><a href="https://github.com/yuutwtm" target="_blank" class="contact-link">GitHub</a></li>
+                    <li><a href="https://instagram.com/yuutalkwaytoomuch" target="_blank" class="contact-link">Instagram</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
-
-      <!-- Experience -->
-      <div class="section" data-open="false">
-        <button class="section-toggle" aria-expanded="false" aria-controls="body-exp">
-          <span class="section-label">
-            <span lang-content="en">Experience</span>
-            <span lang-content="ko">경력</span>
-          </span>
-          <svg class="section-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
-        </button>
-        <div class="section-body" id="body-exp">
-
-          <article class="entry">
-            <span class="entry-title">
-              <span lang-content="en">Middle School Teacher</span>
-              <span lang-content="ko">중등교사</span>
-            </span>
-            <span class="entry-date">2024 — present</span>
-            <span class="entry-meta">
-              <span lang-content="en">Haemil Middle School · Sejong, KR</span>
-              <span lang-content="ko">해밀중학교 · 세종</span>
-            </span>
-            <div class="entry-body">
-              <ul>
-                <li lang-content="en">Executed international exchange programmes with Thai and DoDEA schools. (2026-)</li>
-                <li lang-content="en">Planned and executed multiple library and literacy education-adjacent programmes. (2024-2025)</li>
-                <li lang-content="en">Various experiences with organising and instructing students-directed world citizenship related projects. (2024-2025)</li>
-                <li lang-content="ko">직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
-                <li lang-content="ko">두 번째 항목: 구체적이고 결과 지향적으로.</li>
-              </ul>
+   
+        <!-- About Section -->
+        <div class="section-row">
+            <div class="section-label" lang="en">About</div>
+            <div class="section-label" lang="ko">소개</div>
+            <div class="section-content">
+                <div lang="en">
+                    <p class="lead-paragraph">I believe in the accountability of us adults in making our students ask better questions; in convincing them that some criticisms are indeed constructive; in providing them the adequate introduction into the public sphere; in, ultimately, engaging them with the world that will be theirs to protect.</p>
+                    <p class="lead-paragraph">My methods include, but are not limited to, critical reasoning, essay writing, designing presentations, all the while embracing technological advancements relevant to our end goal.</p>
+                </div>
+                <div lang="ko">
+                    <p class="lead-paragraph">자신이 누구인지, 무엇을 하는 사람인지에 대한 간결하고 명확한 소개문. 세 문장 이내로 — 요약이 아닌 정제된 언어로.</p>
+                </div>
             </div>
-          </article>
-
-          <article class="entry">
-            <span class="entry-title">
-              <span lang-content="en">Student Ambassador</span>
-              <span lang-content="ko">이전 직책</span>
-            </span>
-            <span class="entry-date">2022</span>
-            <span class="entry-meta">
-              <span lang-content="en">Korea National University of Education (KNUE) · Cheongju</span>
-              <span lang-content="ko">회사명 · 도시</span>
-            </span>
-            <div class="entry-body">
-              <ul>
-                <li lang-content="en">Directed and produced various Instagram events and carousels regarding the university and related topics.</li>
-                <li lang-content="en">Interviewed other ambassadors as a means to engage the public with the university.</li>
-                <li lang-content="ko">주요 기여 사항.</li>
-                <li lang-content="ko">주요 기여 사항.</li>
-              </ul>
-            </div>
-          </article>
-
-            <article class="entry">
-            <span class="entry-title">
-              <span lang-content="en">Student Reporter (The UIC Scribe)</span>
-              <span lang-content="ko">이전 직책</span>
-            </span>
-            <span class="entry-date">2020 - 2021</span>
-            <span class="entry-meta">
-              <span lang-content="en">Yonsei University · Seoul</span>
-              <span lang-content="ko">회사명 · 도시</span>
-            </span>
-            <div class="entry-body">
-              <ul>
-                <li lang-content="en">Contributed articles for the UIC Scribe, an all-English biannual newsletter of Underwood International College, regarding affairs within and outside Yonsei. (2020-2021)</li>
-                <li lang-content="ko">주요 기여 사항.</li>
-                <li lang-content="ko">주요 기여 사항.</li>
-              </ul>
-            </div>
-          </article>
-          
         </div>
-      </div>
 
-   <!-- Education -->
-      <div class="section" data-open="false">
-        <button class="section-toggle" aria-expanded="false" aria-controls="body-edu">
-          <span class="section-label">
-            <span lang-content="en">Skills & Expertise</span>
-            <span lang-content="ko">관심분야</span>
-          </span>
-          <svg class="section-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
-        </button>
-        <div class="section-body" id="body-edu">
+        <!-- Experience Section -->
+        <div class="section-row">
+            <div class="section-label" lang="en">Experience</div>
+            <div class="section-label" lang="ko">경력</div>
+            <div class="section-content">
+                <!-- English Experience -->
+                <div lang="en">
+                    <div class="timeline-item">
+                        <div class="item-meta">
+                            <div>Middle School Teacher</div>
+                            <div>2024 — present</div>
+                        </div>
+                        <div class="item-institution">Haemil Middle School · Sejong, KR</div>
+                        <ul class="item-details">
+                            <li>Executed international exchange programmes with Thai and DoDEA schools. (2026-)</li>
+                            <li>Planned and executed multiple library and literacy education-adjacent programmes. (2024-2025)</li>
+                            <li>Various experiences with organising and instructing students-directed world citizenship related projects. (2024-2025)</li>
+                        </ul>
+                    </div>
 
-          <article class="entry">
-           <span class="section-body">
-              <span lang-content="en">Philosophy is fundamentally the rigorous practice of questioning and being questioned. Can you ask the right questions? Can you effectively defend your points? How will you react when your world is challenged? True critical thinking demands nothing less than genuine openness to being wrong.</span>
-              <span lang-content="ko">학위, 전공</span>
-            </span>
-            <div class="entry-body">
-              <ul>
-                <li lang-content="en">Critical reading</li>
-                <li lang-content="en">Media literacy education</li>
-                <li lang-content="en">Facilitating formal discussions (BP Debate, Model United Nations) and non-formal discussions</li>
-                <li lang-content="ko">직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
-                <li lang-content="ko">두 번째 항목: 구체적이고 결과 지향적으로.</li>
-              </ul>
+                    <div class="timeline-item" style="margin-top: 40px;">
+                        <div class="item-meta">
+                            <div>Student Ambassador</div>
+                            <div>2022</div>
+                        </div>
+                        <div class="item-institution">Korea National University of Education (KNUE) · Cheongju</div>
+                        <ul class="item-details">
+                            <li>Directed and produced various Instagram events and carousels regarding the university and related topics.</li>
+                            <li>Interviewed other ambassadors as a means to engage the public with the university.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item" style="margin-top: 40px;">
+                        <div class="item-meta">
+                            <div>Student Reporter - The UIC Scribe</div>
+                            <div>2020 - 2021</div>
+                        </div>
+                        <div class="item-institution">Yonsei University · Seoul</div>
+                        <ul class="item-details">
+                            <li>Contributed articles for the UIC Scribe, an all-English biannual newsletter of Underwood International College, regarding affairs within and outside Yonsei. (2020-2021)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Korean Experience -->
+                <div lang="ko">
+                    <div class="timeline-item">
+                        <div class="item-meta">
+                            <div>중등교사</div>
+                            <div>2024 — 현재</div>
+                        </div>
+                        <div class="item-institution">해밀중학교 · 세종</div>
+                        <ul class="item-details">
+                            <li>직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
+                            <li>두 번째 항목: 구체적이고 결과 지향적으로.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item" style="margin-top: 40px;">
+                        <div class="item-meta">
+                            <div>이전 직책</div>
+                            <div>2022</div>
+                        </div>
+                        <div class="item-institution">회사명 · 도시</div>
+                        <ul class="item-details">
+                            <li>주요 기여 사항.</li>
+                            <li>주요 기여 사항.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item" style="margin-top: 40px;">
+                        <div class="item-meta">
+                            <div>이전 직책</div>
+                            <div>2020 - 2021</div>
+                        </div>
+                        <div class="item-institution">회사명 · 도시</div>
+                        <ul class="item-details">
+                            <li>주요 기여 사항.</li>
+                            <li>주요 기여 사항.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-             </article>
-          <article class="entry">
-             <span class="section-body">
-              <span lang-content="en">Messages matter. Delivery matters too. I make extensive use of both textual and visual language.</span>
-              <span lang-content="ko">학위, 전공</span>
-            </span>
-         
-            <div class="entry-body">
-              <ul>
-                <li lang-content="en">Essay writing</li>
-                <li lang-content="en">Student-directed projects</li>
-                <li lang-content="en">Contents production through graphic tools (Adobe, Microsoft Powerpoint, Figma, Nano Banana)</li>
-                <li lang-content="ko">직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
-                <li lang-content="ko">두 번째 항목: 구체적이고 결과 지향적으로.</li>
-              </ul>
+        </div>
+
+        <!-- Skills & Expertise Section -->
+        <div class="section-row">
+            <div class="section-label" lang="en">Expertise</div>
+            <div class="section-label" lang="ko">관심분야</div>
+            <div class="section-content">
+                <div lang="en">
+                    <p class="lead-paragraph" style="font-weight: 400;">Philosophy is fundamentally the rigorous practice of questioning and being questioned. Can you ask the right questions? Can you effectively defend your points? How will you react when your world is challenged? True critical thinking demands nothing less than genuine openness to being wrong.</p>
+                    <ul class="item-details" style="margin-bottom: 40px;">
+                        <li>Critical reading</li>
+                        <li>Media literacy education</li>
+                        <li>Facilitating formal discussions (BP Debate, Model United Nations) and non-formal discussions</li>
+                    </ul>
+
+                    <p class="lead-paragraph" style="font-weight: 400;">Messages matter. Delivery matters too. I make extensive use of both textual and visual language.</p>
+                    <ul class="item-details">
+                        <li>Essay writing</li>
+                        <li>Student-directed projects</li>
+                        <li>Contents production through graphic tools (Adobe, Microsoft Powerpoint, Figma, Nano Banana)</li>
+                    </ul>
+                </div>
+                
+                <div lang="ko">
+                    <div class="timeline-item">
+                        <div class="item-meta" style="font-size: 1.35rem; margin-bottom: 10px;">학위, 전공</div>
+                        <ul class="item-details">
+                            <li>직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
+                            <li>두 번째 항목: 구체적이고 결과 지향적으로.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item" style="margin-top: 30px;">
+                        <div class="item-meta" style="font-size: 1.35rem; margin-bottom: 10px;">학위, 전공</div>
+                        <ul class="item-details">
+                            <li>직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
+                            <li>두 번째 항목: 구체적이고 결과 지향적으로.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="section-row">
+            <div class="section-label" lang="en">Education</div>
+            <div class="section-label" lang="ko">학력</div>
+            <div class="section-content">
+                <div lang="en">
+                    <div class="timeline-item">
+                        <div class="item-meta">
+                            <div>Bachelor of Education in Ethics Education - B.Ed</div>
+                            <div>2022 — 2024</div>
+                        </div>
+                        <div class="item-institution" style="margin-bottom: 0;">Korea National University of Education</div>
+                    </div>
+                    <div class="timeline-item" style="margin-top: 35px;">
+                        <div class="item-meta">
+                            <div>Quantitative Risk Management (Major)<br>>English Language & Literature (Minor)</div>
+                            <div>2020 — 2022</div>
+                        </div>
+                        <div class="item-institution" style="margin-bottom: 0;">Underwood International College, Yonsei University</div>
+                    </div>
+                </div>
+                
+                <div lang="ko">
+                    <div class="timeline-item">
+                        <div class="item-meta">
+                            <div>학위, 전공 (2022 — 2024)</div>
+                        </div>
+                        <div class="item-institution" style="margin-bottom: 0; font-size: 1.35rem; color: var(--text-color);">대학교명</div>
+                    </div>
+                    <div class="timeline-item" style="margin-top: 35px;">
+                        <div class="item-meta">
+                            <div>학위, 전공 (2020 — 2022)</div>
+                        </div>
+                        <div class="item-institution" style="margin-bottom: 0; font-size: 1.35rem; color: var(--text-color);">대학교명</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Checklist Section -->
+        <div class="section-row">
+            <div class="section-label" lang="en">Skills</div>
+            <div class="section-label" lang="ko">기술</div>
+            <div class="section-content">
+                <ul class="item-details">
+                    <li>Korean (Native)</li>
+                    <li>English (Professional Working Proficiency)</li>
+                    <li>Adobe Photoshop (Proficient)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Selected Work Section -->
+        <div class="section-row">
+            <div class="section-label" lang="en">Works</div>
+            <div class="section-label" lang="ko">주요 작업</div>
+            <div class="section-content">
+                <div lang="en">
+                    <div class="timeline-item">
+                        <div class="item-meta">
+                            <div>Project Name</div>
+                            <div>2023</div>
+                        </div>
+                        <p style="font-size: 1.25rem; color: #333;">Short description of what it is and why it matters.</p>
+                    </div>
+                    <div class="timeline-item" style="margin-top: 35px;">
+                        <div class="item-meta">
+                            <div>Open Source Work</div>
+                            <div>2022</div>
+                        </div>
+                        <p style="font-size: 1.25rem; color: #333;">Short description.</p>
+                    </div>
+                </div>
+                
+                <div lang="ko">
+                    <div class="timeline-item">
+                        <div class="item-meta">
+                            <div>프로젝트명</div>
+                            <div>2023</div>
+                        </div>
+                        <p style="font-size: 1.25rem; color: #333;">프로젝트의 성격과 의의에 대한 간략한 설명.</p>
+                    </div>
+                    <div class="timeline-item" style="margin-top: 35px;">
+                        <div class="item-meta">
+                            <div>오픈소스 작업</div>
+                            <div>2022</div>
+                        </div>
+                        <p style="font-size: 1.25rem; color: #333;">간략한 설명.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ </main>
+    <!-- Seamless Footer integration -->
+    <footer>
+        <div>
+            <span lang="en">Last Updated: June 2026</span>
+            <span lang="ko">최근 업데이트: 2026년 6월</span>
+        </div>
+        <div>© 2026 Yugyoung Joan Sung</div>
+    </footer>
+
+    <!-- Core Interactive Script -->
+    <script>
+        function setLanguage(lang) {
+            document.documentElement.setAttribute('data-lang', lang);
             
-          </article>
+            // Toggle active indicator on buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            if (lang === 'ko') {
+                document.getElementById('btn-ko').classList.add('active');
+            } else {
+                document.getElementById('btn-en').classList.add('active');
+            }
+        }
 
-        </div>
-      </div>
-
-        
-      <!-- Education -->
-      <div class="section" data-open="false">
-        <button class="section-toggle" aria-expanded="false" aria-controls="body-edu">
-          <span class="section-label">
-            <span lang-content="en">Education</span>
-            <span lang-content="ko">학력</span>
-          </span>
-          <svg class="section-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
-        </button>
-        <div class="section-body" id="body-edu">
-
-          <article class="entry">
-           <span class="entry-title">
-              <span lang-content="en">Bachelor of Education in Ethics Education - B.Ed</span>
-              <span lang-content="ko">학위, 전공</span>
-            </span>
-            <span class="entry-date">2022 — 2024</span>
-            <span class="entry-meta">
-              <span lang-content="en">Korea National University of Education</span>
-              <span lang-content="ko">대학교명</span>
-            </span>
-             </article>
-          <article class="entry">
-             <span class="entry-title">
-              <span lang-content="en">Quantitative Risk Management (Majored) / English Language & Literature (Minored)</span>
-              <span lang-content="ko">학위, 전공</span>
-            </span>
-            <span class="entry-date">2020 — 2022</span>
-            <span class="entry-meta">
-              <span lang-content="en">Underwood International College, Yonsei University</span>
-              <span lang-content="ko">대학교명</span>
-            </span>
-            
-          </article>
-
-        </div>
-      </div>
-
-      <!-- Skills -->
-      <div class="section" data-open="false">
-        <button class="section-toggle" aria-expanded="false" aria-controls="body-skills">
-          <span class="section-label">
-            <span lang-content="en">Skills</span>
-            <span lang-content="ko">기술</span>
-          </span>
-          <svg class="section-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
-        </button>
-        <div class="section-body" id="body-skills">
-          <div class="skills-grid">
-            <span class="skill-tag">Korean (Native)</span>
-            <span class="skill-tag">English (Professional Working Proficiency)</span>
-            <span class="skill-tag">Adobe Photoshop (Proficient)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Selected Work -->
-      <div class="section" data-open="false">
-        <button class="section-toggle" aria-expanded="false" aria-controls="body-work">
-          <span class="section-label">
-            <span lang-content="en">Selected Work</span>
-            <span lang-content="ko">주요 작업</span>
-          </span>
-          <svg class="section-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
-        </button>
-        <div class="section-body" id="body-work">
-
-          <article class="entry">
-            <span class="entry-title">
-              <a href="https://yourproject.com" target="_blank" rel="noopener">
-                <span lang-content="en">Project Name ↗</span>
-                <span lang-content="ko">프로젝트명 ↗</span>
-              </a>
-            </span>
-            <span class="entry-date">2023</span>
-            <div class="entry-body">
-              <span lang-content="en">Short description of what it is and why it matters.</span>
-              <span lang-content="ko">프로젝트의 성격과 의의에 대한 간략한 설명.</span>
-            </div>
-          </article>
-
-          <article class="entry">
-            <span class="entry-title">
-              <a href="https://github.com/yourhandle/repo" target="_blank" rel="noopener">
-                <span lang-content="en">Open Source Work ↗</span>
-                <span lang-content="ko">오픈소스 작업 ↗</span>
-              </a>
-            </span>
-            <span class="entry-date">2022</span>
-            <div class="entry-body">
-              <span lang-content="en">Short description.</span>
-              <span lang-content="ko">간략한 설명.</span>
-            </div>
-          </article>
-
-        </div>
-      </div>
-
-    </main>
-  </div><!-- /.page -->
-
-<script>
-
-
-
-  /* ── Detect preferred language from browser/OS ───────────── */
-  function preferredLang() {
-    const langs = navigator.languages || [navigator.language || 'en'];
-    for (const l of langs) {
-      if (l.startsWith('ko')) return 'ko';
-      if (l.startsWith('en')) return 'en';
-    }
-    return 'en';   // fallback
-  }
-
-  /* ── Apply language state ────────────────────────────────── */
-  function setLang(lang) {
-    const isKo = lang === 'ko';
-    document.body.className        = 'lang-' + lang;
-    document.documentElement.lang  = isKo ? 'ko' : 'en';
-
-    const toggle = document.getElementById('lang-toggle');
-    toggle.checked                  = isKo;
-    toggle.setAttribute('aria-checked', String(isKo));
-
-    document.getElementById('flag-en').classList.toggle('active', !isKo);
-    document.getElementById('flag-ko').classList.toggle('active',  isKo);
-  }
-
-  /* ── Wire up the toggle ──────────────────────────────────── */
-  document.getElementById('lang-toggle').addEventListener('change', function() {
-    setLang(this.checked ? 'ko' : 'en');
-  });
-
-  /* ── Set default on load ─────────────────────────────────── */
-  setLang(preferredLang());
-
-  /* ── Accordion ───────────────────────────────────────────── */
-  document.querySelectorAll('.section[data-open="false"] .section-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const section = btn.closest('.section');
-      const isOpen  = section.classList.contains('is-open');
-      section.classList.toggle('is-open', !isOpen);
-      btn.setAttribute('aria-expanded', String(!isOpen));
-    });
-  });
-  
-  document.querySelector('.sidebar-avatar').addEventListener('click', function() {
-  this.classList.remove('spinning');
-  void this.offsetWidth; /* force reflow so animation restarts on repeat taps */
-  this.classList.add('spinning');
-  this.addEventListener('animationend', () => this.classList.remove('spinning'), { once: true });
-});
-
-</script>
+        // Automatic user locale/language routing detection logic
+        window.addEventListener('DOMContentLoaded', () => {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('ko')) {
+                setLanguage('ko');
+            } else {
+                setLanguage('en');
+            }
+        });
+    </script>
 </body>
 </html>

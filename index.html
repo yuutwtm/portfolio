@@ -34,11 +34,6 @@
             margin: 0 auto;
         }
 
-         /* Styles only paragraph tags that sit inside your div container */
-        .container r {
-            font-weight: 600;
-            }
-
         /* Language Toggle - iOS Style Floating / Top-right */
         .top-bar {
             display: flex;
@@ -100,7 +95,7 @@
         /* Asymmetric Layout Infrastructure */
         .section-row {
             display: grid;
-            grid-template-columns: 3.5fr 6.5fr;
+            grid-template-columns: 3.2fr 6.8fr;
             border-top: 2px solid var(--text-color);
             padding-top: 25px;
             margin-bottom: 90px;
@@ -112,7 +107,7 @@
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             line-height: 1.1;
             text-transform: capitalize;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
             padding-right: 40px;
             margin-bottom: 20px;
         }
@@ -151,12 +146,12 @@
             justify-content: space-between;
             align-items: baseline;
             font-weight: 600;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 4px;
         }
 
         .item-institution {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--text-muted);
             margin-bottom: 15px;
         }
@@ -274,8 +269,8 @@
     <header-container>
         <h1 class="site-title">yuutalkwaytoomuch.pages.dev</h1>
         
-        <div class="role-subtitle" lang="en">Hello! My name is <r>Yugyoung Joan Sung</r>, an educator  · independent researcher based in Sejong, KR.</div>
-        <div class="role-subtitle" lang="ko"><r>성유경</r> — 교육자 · 독립연구가 — 세종</div>
+        <div class="role-subtitle" lang="en">Hello! My name is <span style="font-weight: 600;">Yugyoung Joan Sung</span>, an educator  · independent researcher based in Sejong, KR.</div>
+        <div class="role-subtitle" lang="ko"><span style="font-weight: 600;">성유경</span> — 교육자 · 독립연구가 — 세종</div>
     </header-container>
 
     <main>

@@ -25,15 +25,34 @@
         }
 
         :root {
-            --bg-color: #FFFEFE; /* Apple-style soft, non-pure white */
-            --text-color: #111111;
-            --text-muted: #222222;
-            --border-color: #e5e5e5;
-            --text-highlight: #02b7f1;
-            --shadow-spread: 0 12px 40px rgba(0, 0, 0, 0.06);
+            --bg-color: #f8f8fa;
+            --link-hover-bg: #C9CCF7; /* pale ultramarine, so the ink stays legible on it */
+            --text-color: #111110;
+            --text-muted: #55554F;
+            --text-faint: #8C8C85;
+            --rule-heavy: #111110;    /* above a section */
+            --rule-hair: #C6C6C0;     /* between items inside one */
+            --accent: #1F2BE0;        /* one print ink, replaces the cyan */
+            --accent-ink: #FFFFFF;
             /* Latin resolves to Franklin Gothic; Hangul falls through to Pretendard */
+            --ko-scale: 1;   /* Korean optical step-down, see the [data-lang] rule */
             --font-display: "franklin-gothic-std", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
             --font-body: "franklin-gothic-std", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Same design, second ground. Only the tokens are redefined. */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0D0D0C;
+                --link-hover-bg: #2A2F6B;
+                --text-color: #EDEDE8;
+                --text-muted: #A3A39C;
+                --text-faint: #6B6B65;
+                --rule-heavy: #EDEDE8;
+                --rule-hair: #34342F;
+                --accent: #7B85FF;
+                --accent-ink: #0D0D0C;
+            }
         }
 
         body {
@@ -47,127 +66,164 @@
             margin: 0 auto;
         }
 
-        /* Language Toggle - iOS Style Floating / Top-right */
+        /* Language toggle: type, not a switch. No capsule, no flags, no shadow. */
         .top-bar {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 60px;
         }
 
         .lang-toggle {
             display: inline-flex;
-            background-color: rgba(0, 0, 0, 0.04);
-            padding: 4px;
-            border-radius: 9999px; /* Will dynamic wrap to oval half-height */
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        .lang-sep {
+            color: var(--text-faint);
+            padding: 0 0.2rem;
         }
 
         .lang-btn {
+            font: inherit;
+            letter-spacing: inherit;
             background: none;
             border: none;
-            font-size: 20px;
             cursor: pointer;
-            padding: 8px 18px;
-            border-radius: 9999px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            outline: none;
+            padding: 4px 8px;
+            color: var(--text-faint);
+            transition: color 0.12s linear, background-color 0.12s linear;
+        }
+
+        .lang-btn:hover {
+            color: var(--text-color);
         }
 
         .lang-btn.active {
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            background-color: var(--text-color);
+            color: var(--bg-color);
         }
 
-        /* MoMA Layout - Giant Bold Typography */
+        .lang-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* MoMA Layout - Giant Bold Typography.
+           The name is the loudest thing on the page; the URL is a kicker. */
+        .site-kicker {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
         h1.site-title {
             font-family: var(--font-display);
             font-weight: 600;
-            font-size: clamp(3.5rem, 8vw, 4rem);
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            text-transform: capitalize;
-            margin-bottom: 10px;
-            -webkit-hyphens: auto; /* Required for Safari/iOS */
-            -ms-hyphens: auto;     /* Required for Edge/IE */
-            hyphens: auto;         /* Standard property */
+            font-size: clamp(3.2rem, 11vw, 7.5rem);
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            margin-bottom: 22px;
             word-break: break-word;
         }
 
         .role-subtitle {
-            font-size: clamp(1.8rem, 2.5vw, 2rem);
+            font-size: calc(clamp(1.25rem, 1.9vw, 1.6rem) * var(--ko-scale));
             font-weight: 400;
             color: var(--text-muted);
-            letter-spacing: -0.02em;
-            margin-bottom: 80px;
+            letter-spacing: -0.015em;
+            margin-bottom: 90px;
+            max-width: 46ch;
         }
 
-        /* Asymmetric Layout Infrastructure */
+        /* Asymmetric Layout Infrastructure.
+           Heavy rule above each section; the label sits flush right in the rail
+           so it reads as marginalia rather than a heading. */
         .section-row {
             display: grid;
             grid-template-columns: 3.2fr 6.8fr;
-            border-top: 2px solid var(--text-color);
-            padding-top: 25px;
+            border-top: 2px solid var(--rule-heavy);
+            padding-top: 22px;
             margin-bottom: 90px;
         }
 
         .section-label {
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: clamp(2.4rem, 4vw, 2.8rem);
-            line-height: 1.1;
-            text-transform: capitalize;
-            letter-spacing: -0.03em;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.35;
+            letter-spacing: -0.01em;
+            color: var(--accent);
+            text-align: right;
             padding-right: 40px;
             margin-bottom: 20px;
         }
 
         .section-content {
-            font-size: 1.4rem; /* Large text format matching reference */
+            font-size: 1.3rem;
             font-weight: 400;
             letter-spacing: -0.01em;
             color: var(--text-color);
+            min-width: 0;
         }
 
         /* Copy Block Adjustments */
         .lead-paragraph {
-            font-size: clamp(1.5rem, 2.2vw, 1.8rem);
+            font-size: calc(clamp(1.35rem, 1.9vw, 1.6rem) * var(--ko-scale));
             line-height: 1.45;
             font-weight: 400;
-            margin-bottom: 30px;
-            color: #000;
+            margin-bottom: 28px;
+            color: var(--text-color);
+            max-width: 60ch;
         }
 
         .lead-paragraph:last-child {
             margin-bottom: 0;
         }
 
-        /* Timeline & List Styles */
+        /* Timeline & List Styles — hairline rules between items */
         .timeline-item {
-            margin-bottom: 50px;
+            padding-bottom: 28px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--rule-hair);
         }
 
         .timeline-item:last-child {
+            padding-bottom: 0;
             margin-bottom: 0;
+            border-bottom: none;
         }
 
         .item-meta {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
+            gap: 24px;
             font-weight: 600;
-            font-size: 1.5rem;
+            font-size: 1.35rem;
+            letter-spacing: -0.015em;
             margin-bottom: 4px;
         }
 
+        /* The date is data: lighter, aligned, and figures in one column */
+        .item-meta > div:last-child:not(:only-child) {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--text-faint);
+            text-align: right;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
         .item-institution {
-            font-size: 1.4rem;
-            font-style: italic;
-            color: var(--text-muted);
-            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 14px;
         }
 
         .item-details {
@@ -176,74 +232,93 @@
 
         .item-details li {
             position: relative;
-            padding-left: 20px;
+            padding-left: 24px;
             margin-bottom: 10px;
-            font-size: 1.4rem;
-            color: #333;
+            font-size: calc(1.2rem * var(--ko-scale));
+            color: var(--text-muted);
+            max-width: 62ch;
+        }
+
+        .item-details li:last-child {
+            margin-bottom: 0;
         }
 
         .item-details li::before {
-            content: "—";
+            content: "\2192";
             position: absolute;
             left: 0;
-            color: var(--text-muted);
+            color: var(--text-faint);
         }
 
-        /* Links and Buttons (Apple & MoMA style integrated seamlessly) */
+        .work-note {
+            font-size: calc(1.15rem * var(--ko-scale));
+            color: var(--text-muted);
+            max-width: 62ch;
+        }
+
+        /* Links and Buttons — printed, not pressed.
+           No radius, no shadow, no lift. Hover is a flat inversion. */
         .contact-list {
             list-style: none;
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
         }
 
         .contact-link {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--text-color);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            padding: 12px 28px;
-            border: 1.5px solid var(--text-color);
-            border-radius: 9999px; /* Perfect oval capsule rule */
-            transition: all 0.25s ease;
+            font-weight: 500;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+            padding: 11px 20px;
+            border: 1px solid var(--text-color);
+            border-radius: 0;
             background-color: transparent;
+            transition: background-color 0.12s linear, color 0.12s linear;
         }
 
-        .contact-link:hover {
+        .contact-link:hover,
+        .contact-link:focus-visible {
             background-color: var(--text-color);
-            color: #ffffff;
-            box-shadow: var(--shadow-spread);
-            transform: translateY(-2px);
+            color: var(--bg-color);
         }
 
-        /* Apply styles to links, but exclude those in the contact-list */
+        /* Inline links: one signal, not three */
         a:not(.contact-list a) {
-            color: inherit; /* Keeps the text color */
+            color: inherit;
             text-decoration: underline;
-            text-decoration-color: var(--text-color);
-            transition: background-color 0.2s ease;
-            padding: 0 2px; /* Adds a tiny bit of breathing room for the highlight */
-            border-radius: 2px;
-            }
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+            padding: 0 2px;
+            transition: background-color 0.15s ease;
+        }
 
-            /* Hover state for those specific links */
-            a:not(.contact-list a):hover {
-            background-color: var(--text-highlight);
-            text-decoration: underline;
-            font-style: italic;
-            text-decoration-color: var(--text-color);
-            }
+        /* Hover is a highlight swipe and nothing else — no italic, no colour
+           shift, no underline change. */
+        a:not(.contact-list a):hover {
+            background-color: var(--link-hover-bg);
+        }
+
+        a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
 
         /* Footer Metadata */
         footer {
             margin-top: 120px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 30px;
+            border-top: 2px solid var(--rule-heavy);
+            padding-top: 22px;
             display: flex;
             justify-content: space-between;
-            font-size: 1.1rem;
-            color: var(--text-muted);
+            gap: 20px;
+            font-size: 1rem;
+            color: var(--text-faint);
         }
 
         /* Language Toggle Switcher engine conditional views.
@@ -257,13 +332,29 @@
         }
 
         /* Hangul breaks on word boundaries, not mid-syllable-block */
+        html[data-lang="ko"] {
+            --ko-scale: 0.94;
+        }
+
         html[data-lang="ko"] body {
             word-break: keep-all;
             overflow-wrap: break-word;
         }
 
+        /* Hangul fills more of its em box than Latin, so it reads larger at the
+           same nominal size. Step it back and open the leading.
+           Scaled via a token, not `em` — `em` would resolve against each
+           parent's size rather than the element's own. */
+        html[data-lang="ko"] .lead-paragraph,
+        html[data-lang="ko"] .item-details li,
+        html[data-lang="ko"] .work-note,
+        html[data-lang="ko"] .role-subtitle {
+            line-height: 1.65;
+        }
+
         html[data-lang="ko"] h1.site-title,
-        html[data-lang="ko"] .section-label {
+        html[data-lang="ko"] .section-label,
+        html[data-lang="ko"] .item-meta {
             letter-spacing: -0.02em;
         }
 
@@ -275,17 +366,25 @@
             .top-bar {
                 margin-bottom: 40px;
             }
+            .role-subtitle {
+                margin-bottom: 60px;
+            }
             .section-row {
                 grid-template-columns: 1fr;
                 margin-bottom: 60px;
                 gap: 10px;
             }
             .section-label {
+                text-align: left;
                 padding-right: 0;
+                margin-bottom: 14px;
             }
             .item-meta {
                 flex-direction: column;
-                gap: 4px;
+                gap: 2px;
+            }
+            .item-meta > div:last-child:not(:only-child) {
+                text-align: left;
             }
             footer {
                 flex-direction: column;
@@ -293,25 +392,34 @@
                 margin-top: 80px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition-duration: 0.01ms !important; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- iOS style language toggle -->
+    <!-- Language toggle as type -->
     <div class="top-bar">
         <div class="lang-toggle">
-            <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">🇬🇧</button>
-            <button class="lang-btn" id="btn-ko" onclick="setLanguage('ko')">🇰🇷</button>
+            <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')" aria-label="English">en</button>
+            <span class="lang-sep">/</span>
+            <button class="lang-btn" id="btn-ko" onclick="setLanguage('ko')" aria-label="한국어">ko</button>
         </div>
     </div>
 
     <!-- Header Section without strict structural header borders -->
-    <header-container>
-        <h1 class="site-title">yuutalkwaytoomuch.pages.dev</h1>
-        
-        <div class="role-subtitle" lang="en">Hello! My name is <a href="https://instagram.com/yuutalkwaytoomuch" title="My Instagram"><span style="font-weight: 600;">Yugyoung Joan Sung</span></a>, an educator  · independent researcher based in Sejong, KR.</div>
-        <div class="role-subtitle" lang="ko">안녕하세요! 세종에서 일하는 교육자이자 독립연구자, <a href="https://instagram.com/yuutalkwaytoomuch" title="인스타그램 계정"><span style="font-weight: 600;">성유경</span></a>이에요.</div>
-    </header-container>
+    <header>
+        <div class="site-kicker">yuutalkwaytoomuch.pages.dev</div>
+        <h1 class="site-title">
+            <span lang="en">Yugyoung Joan Sung</span>
+            <span lang="ko">성유경입니다!</span>
+        </h1>
+
+        <div class="role-subtitle" lang="en">Hello! I&rsquo;m an educator · independent researcher based in Sejong, KR. <a href="https://instagram.com/yuutalkwaytoomuch" title="My Instagram">Instagram</a></div>
+        <div class="role-subtitle" lang="ko">안녕하세요! 세종에서 일하는 교육자이자 독립연구자예요. <a href="https://instagram.com/yuutalkwaytoomuch" title="인스타그램 계정">인스타그램</a></div>
+    </header>
 
     <main>
  <!-- Contact Section / Integrated Action Elements -->
@@ -320,16 +428,16 @@
             <div class="section-label" lang="ko">연락처</div>
             <div class="section-content">
                 <ul class="contact-list" lang="en">
-                    <li><a href="mailto:yuutwtm@gmail.com" class="contact-link">Email</a></li>
-                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">Blog (KR)</a></li>
+                    <li><a href="mailto:yuutwtm@gmail.com" class="contact-link">Email <span aria-hidden="true">&rarr;</span></a></li>
+                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">Blog (KR) <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
                 <ul class="contact-list" lang="ko">
-                    <li><a href="mailto:yuutwtm@gmail.com" class="contact-link">이메일</a></li>
-                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">블로그</a></li>
+                    <li><a href="mailto:yuutwtm@gmail.com" class="contact-link">이메일 <span aria-hidden="true">&rarr;</span></a></li>
+                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">블로그 <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </div>
         </div>
-   
+
         <!-- About Section -->
         <div class="section-row">
             <div class="section-label" lang="en">About</div>
@@ -366,7 +474,7 @@
                         </ul>
                     </div>
 
-                    <div class="timeline-item" style="margin-top: 40px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
                             <div>Student Ambassador</div>
                             <div>2022</div>
@@ -378,7 +486,7 @@
                         </ul>
                     </div>
 
-                    <div class="timeline-item" style="margin-top: 40px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
                             <div>Student Reporter - The UIC Scribe</div>
                             <div>2020 - 2021</div>
@@ -405,7 +513,7 @@
                         </ul>
                     </div>
 
-                    <div class="timeline-item" style="margin-top: 40px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
                             <div>학생 홍보대사</div>
                             <div>2022</div>
@@ -417,7 +525,7 @@
                         </ul>
                     </div>
 
-                    <div class="timeline-item" style="margin-top: 40px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
                             <div>학생기자 - The UIC Scribe</div>
                             <div>2020 - 2021</div>
@@ -433,7 +541,7 @@
 
         <!-- Skills & Expertise Section -->
         <div class="section-row">
-            <div class="section-label" lang="en">Skills & Expertise</div>
+            <div class="section-label" lang="en">Skills &amp; Expertise</div>
             <div class="section-label" lang="ko">관심분야</div>
             <div class="section-content">
                 <div lang="en">
@@ -452,7 +560,7 @@
                         <li>Contents production through AI tools (Vibe coding using Claude and Gemini)</li>
                     </ul>
                 </div>
-                
+
                 <div lang="ko">
                     <p class="lead-paragraph">철학은 결국 묻고, 또 되물음을 받는 일을 아주 성실하게 해내는 거예요. 제대로 된 질문을 던질 수 있나요? 내 주장을 설득력 있게 지켜낼 수 있나요? 내가 믿던 세계가 흔들릴 때 어떻게 반응하나요? 진짜 비판적 사고는 내가 틀렸을 수도 있다는 걸 정말로 받아들일 수 있어야 시작돼요.</p>
                     <ul class="item-details" style="margin-bottom: 40px;">
@@ -485,15 +593,15 @@
                         </div>
                         <div class="item-institution" style="margin-bottom: 0;">Korea National University of Education</div>
                     </div>
-                    <div class="timeline-item" style="margin-top: 35px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
-                            <div>Quantitative Risk Management (Major)<br>English Language & Literature (Minor)</div>
+                            <div>Quantitative Risk Management (Major)<br>English Language &amp; Literature (Minor)</div>
                             <div>2020 — 2022</div>
                         </div>
                         <div class="item-institution" style="margin-bottom: 0;">Underwood International College, Yonsei University</div>
                     </div>
                 </div>
-                
+
                 <div lang="ko">
                     <div class="timeline-item">
                         <div class="item-meta">
@@ -502,7 +610,7 @@
                         </div>
                         <div class="item-institution" style="margin-bottom: 0;">한국교원대학교</div>
                     </div>
-                    <div class="timeline-item" style="margin-top: 35px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
                             <div>계량위험관리 전공<br>영어영문학 부전공</div>
                             <div>2020 — 2022</div>
@@ -542,14 +650,14 @@
                             <div><a href="https://haemil-libra.vercel.app">Money Can’t Buy Us Our Dreams</a></div>
                             <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">A visual novel based on Michael Sandel’s book <i>What Money Can't Buy</i>, envisioning students in a virtual reality game wherein everything can be bought & challenging them to pose ethically meaningful questions in the context of their respective future careers.</p>
+                        <p class="work-note">A visual novel based on Michael Sandel’s book <i>What Money Can't Buy</i>, envisioning students in a virtual reality game wherein everything can be bought &amp; challenging them to pose ethically meaningful questions in the context of their respective future careers.</p>
                     </div>
-                    <div class="timeline-item" style="margin-top: 35px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
                             <div><a href="https://26actionforpeace.pages.dev" target="_blank">2026 Sejong RCE ESD International Youth Camp — Peace Group</a></div>
                             <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">The Peace Group’s site for the 2026 Sejong RCE ESD International Youth Camp, where I served as the group’s supervising teacher.</p>
+                        <p class="work-note">The Peace Group’s site for the 2026 Sejong RCE ESD International Youth Camp, where I served as the group’s supervising teacher.</p>
                     </div>
                 </div>
 
@@ -559,14 +667,14 @@
                             <div><a href="https://haemil-libra.vercel.app">Money Can’t Buy Us Our Dreams</a></div>
                             <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">마이클 샌델의 『돈으로 살 수 없는 것들』에서 출발한 비주얼 노벨이에요. 뭐든 돈으로 살 수 있는 가상현실 게임 안에 학생들을 데려다 놓고, 각자 꿈꾸는 진로에서 윤리적으로 의미 있는 질문을 직접 던져 보게 합니다.</p>
+                        <p class="work-note">마이클 샌델의 『돈으로 살 수 없는 것들』에서 출발한 비주얼 노벨이에요. 뭐든 돈으로 살 수 있는 가상현실 게임 안에 학생들을 데려다 놓고, 각자 꿈꾸는 진로에서 윤리적으로 의미 있는 질문을 직접 던져 보게 합니다.</p>
                     </div>
-                    <div class="timeline-item" style="margin-top: 35px;">
+                    <div class="timeline-item">
                         <div class="item-meta">
                             <div><a href="https://26actionforpeace.pages.dev" target="_blank">2026 세종RCE 지속가능발전교육 국제청소년캠프 — 평화분과</a></div>
                             <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">2026 세종RCE 지속가능발전교육 국제청소년캠프에서 평화분과 지도교사를 맡으면서 만든 분과 웹사이트예요.</p>
+                        <p class="work-note">2026 세종RCE 지속가능발전교육 국제청소년캠프에서 평화분과 지도교사를 맡으면서 만든 분과 웹사이트예요.</p>
                     </div>
                 </div>
             </div>

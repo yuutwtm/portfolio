@@ -27,6 +27,11 @@
         :root {
             --bg-color: #f8f8fa;
             --link-hover-bg: #C9CCF7; /* pale ultramarine, so the ink stays legible on it */
+            /* Second ink. Only ever a background, always with --marker-ink on it,
+               so it behaves identically in both themes. It means one thing:
+               this is still happening. */
+            --marker: #FF3D97;
+            --marker-ink: #111110;
             --text-color: #111110;
             --text-muted: #55554F;
             --text-faint: #8C8C85;
@@ -218,6 +223,21 @@
             text-align: right;
             white-space: nowrap;
             font-variant-numeric: tabular-nums;
+        }
+
+        /* The one ongoing role gets the marker. It appears once per language,
+           which is what makes it read as a mark rather than a colour scheme. */
+        .item-meta > div.is-current:last-child:not(:only-child) {
+            background-color: var(--marker);
+            color: var(--marker-ink);
+            /* Left-only padding: the swipe runs into the column edge so this
+               date's text still lines up with the others in the column. */
+            padding: 2px 0 2px 8px;
+        }
+
+        ::selection {
+            background-color: var(--marker);
+            color: var(--marker-ink);
         }
 
         .item-institution {
@@ -464,7 +484,7 @@
                     <div class="timeline-item">
                         <div class="item-meta">
                             <div>Middle School Teacher</div>
-                            <div>2024 — present</div>
+                            <div class="is-current">2024 — present</div>
                         </div>
                         <div class="item-institution">Haemil Middle School · Sejong, KR</div>
                         <ul class="item-details">
@@ -503,7 +523,7 @@
                     <div class="timeline-item">
                         <div class="item-meta">
                             <div>중등교사</div>
-                            <div>2024 — 현재</div>
+                            <div class="is-current">2024 — 현재</div>
                         </div>
                         <div class="item-institution">해밀중학교 · 세종</div>
                         <ul class="item-details">

@@ -459,6 +459,17 @@
             .section-content {
                 padding-left: 0;
             }
+            /* Let the rules run wider than the text so they cross the armature,
+               the way the section border does on desktop. Negative margin moves
+               the box edges out; matching padding leaves the text where it was.
+               Item hairlines stay inside the text block, as they do on desktop. */
+            .section-row,
+            footer {
+                margin-left: -32px;
+                margin-right: -12px;
+                padding-left: 32px;
+                padding-right: 12px;
+            }
             .timeline-item {
                 grid-template-columns: 1fr;
                 row-gap: 2px;

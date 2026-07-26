@@ -182,6 +182,9 @@
         }
 
         .section-content {
+            /* Mirrors .section-label's padding-right, so the hairline sits in
+               40px of air on either side instead of being touched by the text. */
+            padding-left: 40px;
             font-size: 1.3rem;
             font-weight: 400;
             letter-spacing: -0.01em;
@@ -417,17 +420,19 @@
         /* Responsive Breakpoint for Mobile Re-arrangement */
         @media (max-width: 868px) {
             body {
-                padding: 24px 24px 60px 24px;
+                /* Asymmetric margin: a wider left gutter so the rule reads as
+                   an inboard armature rather than clinging to the screen edge. */
+                padding: 24px 24px 60px 44px;
                 /* There is no two-column grid left to expose, so the armature
                    states the other true thing: where the text block begins.
                    Sits in the gutter, measured from the viewport edge, so it
                    needs border-box rather than the desktop's content-box. */
                 background-image: linear-gradient(
                     to right,
-                    transparent 11px,
-                    var(--rule-hair) 11px,
-                    var(--rule-hair) 12px,
-                    transparent 12px
+                    transparent 21px,
+                    var(--rule-hair) 21px,
+                    var(--rule-hair) 22px,
+                    transparent 22px
                 );
                 background-origin: border-box;
                 background-clip: border-box;
@@ -450,6 +455,9 @@
                 text-align: left;
                 padding-right: 0;
                 margin-bottom: 14px;
+            }
+            .section-content {
+                padding-left: 0;
             }
             .timeline-item {
                 grid-template-columns: 1fr;
@@ -505,6 +513,9 @@
             }
             .section-label {
                 position: static;
+            }
+            .section-content {
+                padding-left: 24pt;
             }
             h1.site-title {
                 font-size: 32pt;

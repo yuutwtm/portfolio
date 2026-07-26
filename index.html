@@ -61,6 +61,14 @@
             }
         }
 
+        /* Give html its own background so body's does NOT propagate to the
+           canvas. While it propagates, percentage background positions resolve
+           against the root box instead of body's content box, which put the
+           armature hairline ~30px off the column boundary. */
+        html {
+            background-color: var(--bg-color);
+        }
+
         body {
             font-family: var(--font-body);
             background-color: var(--bg-color);
@@ -410,7 +418,19 @@
         @media (max-width: 868px) {
             body {
                 padding: 24px 24px 60px 24px;
-                background-image: none;   /* no two-column grid to expose */
+                /* There is no two-column grid left to expose, so the armature
+                   states the other true thing: where the text block begins.
+                   Sits in the gutter, measured from the viewport edge, so it
+                   needs border-box rather than the desktop's content-box. */
+                background-image: linear-gradient(
+                    to right,
+                    transparent 11px,
+                    var(--rule-hair) 11px,
+                    var(--rule-hair) 12px,
+                    transparent 12px
+                );
+                background-origin: border-box;
+                background-clip: border-box;
             }
             .section-label {
                 position: static;

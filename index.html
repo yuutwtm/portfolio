@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://use.typekit.net/rnx1nvu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yugyoung Joan Sung - CV</title>
+
+    <!-- Resolve language before first paint so the wrong side never flashes -->
+    <script>
+        (function () {
+            var stored = null;
+            try { stored = localStorage.getItem('preferred-lang'); } catch (e) {}
+            var lang = stored || ((navigator.language || 'en').toLowerCase().startsWith('ko') ? 'ko' : 'en');
+            document.documentElement.setAttribute('data-lang', lang);
+        })();
+    </script>
     <style>
         /* CSS Reset & System-wide Variables */
         *, *::before, *::after {
@@ -20,8 +31,9 @@
             --border-color: #e5e5e5;
             --text-highlight: #02b7f1;
             --shadow-spread: 0 12px 40px rgba(0, 0, 0, 0.06);
-            --font-display: "franklin-gothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-body: "franklin-gothic-std", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            /* Latin resolves to Franklin Gothic; Hangul falls through to Pretendard */
+            --font-display: "franklin-gothic-std", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: "franklin-gothic-std", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -234,8 +246,9 @@
             color: var(--text-muted);
         }
 
-        /* Language Toggle Switcher engine conditional views */
-        [lang="ko"] {
+        /* Language Toggle Switcher engine conditional views.
+           Hide-only: the visible side keeps whatever display its own rules give it. */
+        html:not([data-lang="ko"]) [lang="ko"] {
             display: none;
         }
 
@@ -243,8 +256,15 @@
             display: none;
         }
 
-        html[data-lang="ko"] [lang="ko"] {
-            display: block;
+        /* Hangul breaks on word boundaries, not mid-syllable-block */
+        html[data-lang="ko"] body {
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        html[data-lang="ko"] h1.site-title,
+        html[data-lang="ko"] .section-label {
+            letter-spacing: -0.02em;
         }
 
         /* Responsive Breakpoint for Mobile Re-arrangement */
@@ -290,7 +310,7 @@
         <h1 class="site-title">yuutalkwaytoomuch.pages.dev</h1>
         
         <div class="role-subtitle" lang="en">Hello! My name is <a href="https://instagram.com/yuutalkwaytoomuch" title="My Instagram"><span style="font-weight: 600;">Yugyoung Joan Sung</span></a>, an educator  · independent researcher based in Sejong, KR.</div>
-        <div class="role-subtitle" lang="ko"><a href="https://instagram.com/yuutalkwaytoomuch" title="인스타그램 계정"><span style="font-weight: 600;">성유경</span></a> — 교육자 · 독립연구가 — 세종</div>
+        <div class="role-subtitle" lang="ko">안녕하세요! 세종에서 일하는 교육자이자 독립연구자, <a href="https://instagram.com/yuutalkwaytoomuch" title="인스타그램 계정"><span style="font-weight: 600;">성유경</span></a>이에요.</div>
     </header-container>
 
     <main>
@@ -299,9 +319,13 @@
             <div class="section-label" lang="en">Connect</div>
             <div class="section-label" lang="ko">연락처</div>
             <div class="section-content">
-                <ul class="contact-list">
-                    <li><a href="mailto:jetpack6lues@yonsei.ac.kr" class="contact-link">Email</a></li>
+                <ul class="contact-list" lang="en">
+                    <li><a href="mailto:yuutwtm@gmail.com" class="contact-link">Email</a></li>
                     <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">Blog (KR)</a></li>
+                </ul>
+                <ul class="contact-list" lang="ko">
+                    <li><a href="mailto:yuutwtm@gmail.com" class="contact-link">이메일</a></li>
+                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">블로그</a></li>
                 </ul>
             </div>
         </div>
@@ -316,7 +340,8 @@
                     <p class="lead-paragraph">My methods include, but are not limited to, critical reasoning, essay writing, designing presentations, all the while embracing technological advancements relevant to our end goal.</p>
                 </div>
                 <div lang="ko">
-                    <p class="lead-paragraph">자신이 누구인지, 무엇을 하는 사람인지에 대한 간결하고 명확한 소개문. 세 문장 이내로 — 요약이 아닌 정제된 언어로.</p>
+                    <p class="lead-paragraph">학생들이 더 좋은 질문을 던지게 하는 것, 어떤 비판은 정말로 도움이 된다는 걸 납득시키는 것, 공론장에 처음 발을 들이는 길을 제대로 안내해 주는 것. 그래서 결국엔 언젠가 자기가 지켜야 할 세상과 마주 서게 하는 것. 저는 이게 다 어른이 져야 할 몫이라고 생각해요.</p>
+                    <p class="lead-paragraph">주로 쓰는 방법은 비판적으로 생각하기, 에세이 쓰기, 발표 만들기예요. 물론 여기에만 매달리지는 않고요. 목표에 도움이 된다면 새로운 기술도 얼마든지 가져다 씁니다.</p>
                 </div>
             </div>
         </div>
@@ -374,32 +399,32 @@
                         </div>
                         <div class="item-institution">해밀중학교 · 세종</div>
                         <ul class="item-details">
-                            <li>직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
-                            <li>두 번째 항목: 구체적이고 결과 지향적으로.</li>
+                            <li><span style="font-weight: 600;">태국</span>과 <span style="font-weight: 600;">DoDEA</span>(미국 국방부 산하 학교) 학교들이랑 국제교류 프로그램을 운영하고 있어요. (2026-)</li>
+                            <li><span style="font-weight: 600;">도서관</span>과 <span style="font-weight: 600;">문해력</span> 교육에 맞닿은 프로그램을 여러 개 기획하고 운영했어요. (2024-2025)</li>
+                            <li><span style="font-weight: 600;">학생들이 직접 이끄는</span> 시민성 프로젝트를 여러 차례 꾸리고 지도했고요. (2024-)</li>
                         </ul>
                     </div>
 
                     <div class="timeline-item" style="margin-top: 40px;">
                         <div class="item-meta">
-                            <div>이전 직책</div>
+                            <div>학생 홍보대사</div>
                             <div>2022</div>
                         </div>
-                        <div class="item-institution">회사명 · 도시</div>
+                        <div class="item-institution">한국교원대학교 · 청주</div>
                         <ul class="item-details">
-                            <li>주요 기여 사항.</li>
-                            <li>주요 기여 사항.</li>
+                            <li>학교와 그 주변 이야기를 다루는 인스타그램 <a href="https://www.instagram.com/p/Ce2twQcLni-">이벤트</a><a href="https://www.instagram.com/p/CkFhl_1pBiE/">와</a> <a href="https://www.instagram.com/p/CkFgfZspMLx">카드뉴스</a>를 <a href="https://www.instagram.com/p/CeVLadGJCsM">기획</a>하고 <a href="https://www.instagram.com/p/CksGdgVpldX">직접</a> <a href="https://www.instagram.com/p/CiJVyX9JarO">만들었어요.</a></li>
+                            <li>다른 홍보대사들을 <a href="https://www.instagram.com/p/Cnf0pZQyeAG/">인터뷰</a>해서 <a href="https://www.instagram.com/p/Cnf0EVAyYPI/">학교를 더 많은 사람들에게</a> 알리는 콘텐츠도 만들었고요.</li>
                         </ul>
                     </div>
 
                     <div class="timeline-item" style="margin-top: 40px;">
                         <div class="item-meta">
-                            <div>이전 직책</div>
+                            <div>학생기자 - The UIC Scribe</div>
                             <div>2020 - 2021</div>
                         </div>
-                        <div class="item-institution">회사명 · 도시</div>
+                        <div class="item-institution">연세대학교 · 서울</div>
                         <ul class="item-details">
-                            <li>주요 기여 사항.</li>
-                            <li>주요 기여 사항.</li>
+                            <li>언더우드국제대학에서 반년마다 나오는 영자지 The UIC Scribe에 연세대 안팎의 이야기를 기사로 썼어요. <a href="https://yonseiuicscribe.netlify.app/2020/06/2020-06-18-the-class-of-covid-19-from-a-uic-freshmans-perspective/">기사 1</a> <a href="https://yonseiuicscribe.netlify.app/2020/04/2020-04-27-covid-19-report-the-covid-19-syndrome-whats-new-and-whats-not/">기사 2</a> (2020-2021)</li>
                         </ul>
                     </div>
                 </div>
@@ -429,20 +454,20 @@
                 </div>
                 
                 <div lang="ko">
-                    <div class="timeline-item">
-                        <div class="item-meta" margin-bottom: 10px;">학위, 전공</div>
-                        <ul class="item-details">
-                            <li>직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
-                            <li>두 번째 항목: 구체적이고 결과 지향적으로.</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-item" style="margin-top: 30px;">
-                        <div class="item-meta" margin-bottom: 10px;">학위, 전공</div>
-                        <ul class="item-details">
-                            <li>직무가 아닌 성과 중심의 서술. 수치로 표현 가능한 경우 활용.</li>
-                            <li>두 번째 항목: 구체적이고 결과 지향적으로.</li>
-                        </ul>
-                    </div>
+                    <p class="lead-paragraph">철학은 결국 묻고, 또 되물음을 받는 일을 아주 성실하게 해내는 거예요. 제대로 된 질문을 던질 수 있나요? 내 주장을 설득력 있게 지켜낼 수 있나요? 내가 믿던 세계가 흔들릴 때 어떻게 반응하나요? 진짜 비판적 사고는 내가 틀렸을 수도 있다는 걸 정말로 받아들일 수 있어야 시작돼요.</p>
+                    <ul class="item-details" style="margin-bottom: 40px;">
+                        <li>비판적으로 읽기</li>
+                        <li>미디어 리터러시 교육</li>
+                        <li>토론 진행 — BP 디베이트나 모의유엔 같은 형식 토론부터 자유로운 대화까지</li>
+                    </ul>
+
+                    <p class="lead-paragraph">메시지도 중요하지만, 그걸 어떻게 전하느냐도 그만큼 중요하잖아요. 그래서 글과 시각 언어를 둘 다 적극적으로 쓰는 편이에요.</p>
+                    <ul class="item-details">
+                        <li>에세이 쓰기</li>
+                        <li>학생이 직접 이끄는 프로젝트</li>
+                        <li>그래픽 도구로 콘텐츠 만들기 (Adobe, Microsoft PowerPoint, Figma, Nano Banana)</li>
+                        <li>AI 도구로 콘텐츠 만들기 (Claude · Gemini로 바이브 코딩)</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -472,15 +497,17 @@
                 <div lang="ko">
                     <div class="timeline-item">
                         <div class="item-meta">
-                            <div>학위, 전공 (2022 — 2024)</div>
+                            <div>윤리교육과 학사 (B.Ed)</div>
+                            <div>2022 — 2024</div>
                         </div>
-                        <div class="item-institution" style="margin-bottom: 0; color: var(--text-color);">대학교명</div>
+                        <div class="item-institution" style="margin-bottom: 0;">한국교원대학교</div>
                     </div>
                     <div class="timeline-item" style="margin-top: 35px;">
                         <div class="item-meta">
-                            <div>학위, 전공 (2020 — 2022)</div>
+                            <div>계량위험관리 전공<br>영어영문학 부전공</div>
+                            <div>2020 — 2022</div>
                         </div>
-                        <div class="item-institution" style="margin-bottom: 0; color: var(--text-color);">대학교명</div>
+                        <div class="item-institution" style="margin-bottom: 0;">연세대학교 언더우드국제대학</div>
                     </div>
                 </div>
             </div>
@@ -491,10 +518,15 @@
             <div class="section-label" lang="en">Tools</div>
             <div class="section-label" lang="ko">기술</div>
             <div class="section-content">
-                <ul class="item-details">
+                <ul class="item-details" lang="en">
                     <li>Korean (Native)</li>
-                    <li>English (Professional Working Proficiency)</li>
+                    <li>English (Proficient)</li>
                     <li>Adobe Photoshop (Proficient)</li>
+                </ul>
+                <ul class="item-details" lang="ko">
+                    <li>한국어 (모어)</li>
+                    <li>영어 (능숙)</li>
+                    <li>Adobe Photoshop (능숙)</li>
                 </ul>
             </div>
         </div>
@@ -510,31 +542,31 @@
                             <div><a href="https://haemil-libra.vercel.app">Money Can’t Buy Us Our Dreams</a></div>
                             <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">A visual novel based on Michael Sandel’s book <i>What Money Can't Buy</i>, envisioning students in a virtual reality game wherein everything can be bought & challenging them to pose ethically meaningful questions in the context of their respective future careers.</i></p>
+                        <p style="font-size: 1.25rem; color: #333;">A visual novel based on Michael Sandel’s book <i>What Money Can't Buy</i>, envisioning students in a virtual reality game wherein everything can be bought & challenging them to pose ethically meaningful questions in the context of their respective future careers.</p>
                     </div>
                     <div class="timeline-item" style="margin-top: 35px;">
                         <div class="item-meta">
-                            <div>Open Source Work</div>
-                            <div>2022</div>
+                            <div><a href="https://26actionforpeace.pages.dev" target="_blank">2026 Sejong RCE ESD International Youth Camp — Peace Group</a></div>
+                            <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">Short description.</p>
+                        <p style="font-size: 1.25rem; color: #333;">The Peace Group’s site for the 2026 Sejong RCE ESD International Youth Camp, where I served as the group’s supervising teacher.</p>
                     </div>
                 </div>
-                
+
                 <div lang="ko">
                     <div class="timeline-item">
                         <div class="item-meta">
-                            <div>프로젝트명</div>
-                            <div>2023</div>
+                            <div><a href="https://haemil-libra.vercel.app">Money Can’t Buy Us Our Dreams</a></div>
+                            <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">프로젝트의 성격과 의의에 대한 간략한 설명.</p>
+                        <p style="font-size: 1.25rem; color: #333;">마이클 샌델의 『돈으로 살 수 없는 것들』에서 출발한 비주얼 노벨이에요. 뭐든 돈으로 살 수 있는 가상현실 게임 안에 학생들을 데려다 놓고, 각자 꿈꾸는 진로에서 윤리적으로 의미 있는 질문을 직접 던져 보게 합니다.</p>
                     </div>
                     <div class="timeline-item" style="margin-top: 35px;">
                         <div class="item-meta">
-                            <div>오픈소스 작업</div>
-                            <div>2022</div>
+                            <div><a href="https://26actionforpeace.pages.dev" target="_blank">2026 세종RCE 지속가능발전교육 국제청소년캠프 — 평화분과</a></div>
+                            <div>2026</div>
                         </div>
-                        <p style="font-size: 1.25rem; color: #333;">간략한 설명.</p>
+                        <p style="font-size: 1.25rem; color: #333;">2026 세종RCE 지속가능발전교육 국제청소년캠프에서 평화분과 지도교사를 맡으면서 만든 분과 웹사이트예요.</p>
                     </div>
                 </div>
             </div>
@@ -544,34 +576,35 @@
     <!-- Seamless Footer integration -->
     <footer>
         <div>
-            <span lang="en">Last Updated: June 2026</span>
-            <span lang="ko">최근 업데이트: 2026년 6월</span>
+            <span lang="en">Last Updated: July 2026</span>
+            <span lang="ko">최근 업데이트: 2026년 7월</span>
         </div>
-        <div>© 2026 Yugyoung Joan Sung</div>
+        <div>
+            <span lang="en">© 2026 Yugyoung Joan Sung</span>
+            <span lang="ko">© 2026 성유경</span>
+        </div>
     </footer>
 
     <!-- Core Interactive Script -->
     <script>
         function setLanguage(lang) {
             document.documentElement.setAttribute('data-lang', lang);
-            
+            try { localStorage.setItem('preferred-lang', lang); } catch (e) {}
+
             // Toggle active indicator on buttons
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            if (lang === 'ko') {
-                document.getElementById('btn-ko').classList.add('active');
-            } else {
-                document.getElementById('btn-en').classList.add('active');
-            }
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            const active = document.getElementById(lang === 'ko' ? 'btn-ko' : 'btn-en');
+            active.classList.add('active');
+            active.setAttribute('aria-pressed', 'true');
         }
 
-        // Automatic user locale/language routing detection logic
+        // The head script already picked the language; sync the buttons to it.
         window.addEventListener('DOMContentLoaded', () => {
-            const userLang = navigator.language || navigator.userLanguage;
-            if (userLang.startsWith('ko')) {
-                setLanguage('ko');
-            } else {
-                setLanguage('en');
-            }
+            const lang = document.documentElement.getAttribute('data-lang') === 'ko' ? 'ko' : 'en';
+            setLanguage(lang);
         });
     </script>
 </body>

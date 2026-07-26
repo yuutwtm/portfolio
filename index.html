@@ -25,7 +25,8 @@
         }
 
         :root {
-            --bg-color: #EFEFEC;      /* cool bone, not a soft white */
+            --bg-color: #f8f8fa;
+            --link-hover-bg: #C9CCF7; /* pale ultramarine, so the ink stays legible on it */
             --text-color: #111110;
             --text-muted: #55554F;
             --text-faint: #8C8C85;
@@ -43,6 +44,7 @@
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-color: #0D0D0C;
+                --link-hover-bg: #2A2F6B;
                 --text-color: #EDEDE8;
                 --text-muted: #A3A39C;
                 --text-faint: #6B6B65;
@@ -292,11 +294,14 @@
             text-decoration-color: var(--accent);
             text-decoration-thickness: 2px;
             text-underline-offset: 3px;
-            transition: color 0.15s ease;
+            padding: 0 2px;
+            transition: background-color 0.15s ease;
         }
 
+        /* Hover is a highlight swipe and nothing else — no italic, no colour
+           shift, no underline change. */
         a:not(.contact-list a):hover {
-            color: var(--accent);
+            background-color: var(--link-hover-bg);
         }
 
         a:focus-visible {
@@ -409,7 +414,7 @@
         <div class="site-kicker">yuutalkwaytoomuch.pages.dev</div>
         <h1 class="site-title">
             <span lang="en">Yugyoung Joan Sung</span>
-            <span lang="ko">성유경</span>
+            <span lang="ko">성유경입니다!</span>
         </h1>
 
         <div class="role-subtitle" lang="en">Hello! I&rsquo;m an educator · independent researcher based in Sejong, KR. <a href="https://instagram.com/yuutalkwaytoomuch" title="My Instagram">Instagram</a></div>

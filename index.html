@@ -1,866 +1,430 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <link rel="stylesheet" href="https://use.typekit.net/rnx1nvu.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yugyoung Joan Sung - CV</title>
+    <title>27a pitfield st.</title>
 
-    <!-- Resolve language before first paint so the wrong side never flashes -->
-    <script>
-        (function () {
-            var stored = null;
-            try { stored = localStorage.getItem('preferred-lang'); } catch (e) {}
-            var lang = stored || ((navigator.language || 'en').toLowerCase().startsWith('ko') ? 'ko' : 'en');
-            document.documentElement.setAttribute('data-lang', lang);
-        })();
-    </script>
+
+     <!-- All code & contents written by @pitfieldst on X unless otherwise endorsed.
+     Unauthorised copying of this file is strictly prohibited. -->
+
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/mrb3sjs.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
     <style>
-        /* CSS Reset & System-wide Variables */
-        *, *::before, *::after {
+        :root {
+            --font-display: "helvetica-neue-lt-pro", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: "helvetica-neue-lt-pro", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            --font-links: "Times New Roman", Times, serif;
+
+            /* Single Point Color */
+            --accent-color: #FF8000;
+
+            /* Light Mode Background Gradient */
+            --bg-top: #f1f1f2;
+            --bg-bottom: #fafafa;
+            --text-color: #222222;
+            --text-muted: #888888;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* Dark Mode Background Gradient */
+                --bg-top: #101011;
+                --bg-bottom: #161617;
+                --text-color: #e4e4e5;
+                --text-muted: #8e8e93;
+            }
+        }
+
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        :root {
-            --bg-color: #f8f8fa;
-            --link-hover-bg: #C9CCF7; /* pale ultramarine, so the ink stays legible on it */
-            /* Second ink. Only ever a background, always with --marker-ink on it,
-               so it behaves identically in both themes. It means one thing:
-               this is still happening. */
-            --marker: #FF3D97;
-            --marker-ink: #111110;
-            --text-color: #111110;
-            --text-muted: #55554F;
-            --text-faint: #8C8C85;
-            --rule-heavy: #111110;    /* above a section */
-            --rule-hair: #C6C6C0;     /* between items inside one */
-            --accent: #1F2BE0;        /* one print ink, replaces the cyan */
-            --accent-ink: #FFFFFF;
-            /* Latin resolves to Franklin Gothic; Hangul falls through to Pretendard */
-            --when-col: 132px;  /* the date rail */
-            --ko-scale: 1;   /* Korean optical step-down, see the [data-lang] rule */
-            --font-display: "franklin-gothic-std", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-body: "franklin-gothic-std", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        /* Same design, second ground. Only the tokens are redefined. */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #0D0D0C;
-                --link-hover-bg: #2A2F6B;
-                --text-color: #EDEDE8;
-                --text-muted: #A3A39C;
-                --text-faint: #6B6B65;
-                --rule-heavy: #EDEDE8;
-                --rule-hair: #34342F;
-                --accent: #7B85FF;
-                --accent-ink: #0D0D0C;
-            }
-        }
-
-        /* Give html its own background so body's does NOT propagate to the
-           canvas. While it propagates, percentage background positions resolve
-           against the root box instead of body's content box, which put the
-           armature hairline ~30px off the column boundary. */
         html {
-            background-color: var(--bg-color);
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: auto;
         }
 
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg-color);
+            /* Linear Gradient Background */
+            background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
+            background-attachment: fixed;
             color: var(--text-color);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            padding: 40px 60px 80px 60px;
-            max-width: 1400px;
-            margin: 0 auto;
-            /* Show the armature: a hairline on the 3.2fr/6.8fr column boundary,
-               which falls at 32% of the row since the grid has no gap. */
-            background-image: linear-gradient(
-                to right,
-                transparent calc(32% - 1px),
-                var(--rule-hair) calc(32% - 1px),
-                var(--rule-hair) 32%,
-                transparent 32%
-            );
-            background-origin: content-box;
-            background-clip: content-box;
-            background-repeat: no-repeat;
-        }
-
-        /* Language toggle: type, not a switch. No capsule, no flags, no shadow. */
-        .top-bar {
+            font-family: var(--font-body);
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
-            justify-content: flex-end;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 60px;
+            transition: color 0.3s;
+            padding: 2rem 1rem;
         }
 
-        /* One word: the language you are not currently reading. */
-        .lang-swap {
-            font-family: inherit;
+        /* Center Layout Container with Load Animation */
+        .container {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+            margin: auto;
+            
+            /* Stack from top effect on load */
+            animation: stackFromTop 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Uncopiable, Non-breaking ASCII Art */
+        .ascii-art {
+    font-family: monospace;
+    font-size: 9px;
+    line-height: 0.95;
+    letter-spacing: -1.6px;
+    white-space: pre;
+    color: var(--text-color);
+    opacity: 0.85;
+    text-align: center;
+    
+    /* Non-copiable & non-selectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+
+    /* --- FIX: Contain horizontal width & scale down if larger than container --- */
+    max-width: 100%;
+    width: max-content;
+    overflow: hidden;
+    transform-origin: center top;
+    /* Scales down automatically if screen width is narrower than the ASCII art */
+    zoom: 0.65; /* Fixes layout width for Chrome/Safari */
+}
+
+/* Fallback for browsers using container query/transform scale */
+@supports not (zoom: 0.65) {
+    .ascii-art {
+        font-size: 6.5px;
+        letter-spacing: -1px;
+    }
+}
+
+        @media (max-width: 450px) {
+            .ascii-art {
+                font-size: 9px;
+                letter-spacing: -1.6px;
+                line-height: 0.95;
+            }
+        }
+
+        .section-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Old Website Style: Times New Roman, Smaller, Reduced Line Height */
+        .trigger-btn {
+            font-family: var(--font-links);
             font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: -0.01em;
+            line-height: 1.3;
+            letter-spacing: 0;
+            text-transform: lowercase;
+            color: var(--text-color);
             background: none;
             border: none;
             cursor: pointer;
-            padding: 0;
-            color: var(--text-color);
+            padding: 0.1rem 0.4rem;
+            transition: opacity 0.2s ease, color 0.2s ease;
+            outline: none;
+        }
+
+        .trigger-btn:hover {
+            opacity: 0.7;
             text-decoration: underline;
-            text-decoration-color: var(--accent);
-            text-decoration-thickness: 2px;
-            text-underline-offset: 3px;
-            transition: color 0.12s linear;
+            text-underline-offset: 2px;
         }
 
-        .lang-swap:hover {
-            color: var(--accent);
+        .section-item.active .trigger-btn {
+            color: var(--accent-color);
+            text-decoration: underline;
+            text-underline-offset: 2px;
         }
 
-        .lang-swap:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 3px;
-        }
-
-        /* MoMA Layout - Giant Bold Typography.
-           The name is the loudest thing on the page; the URL is a kicker. */
-        .site-kicker {
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            color: var(--accent);
-            margin-bottom: 18px;
-        }
-
-        h1.site-title {
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: clamp(3.2rem, 11vw, 7.5rem);
-            line-height: 0.92;
-            letter-spacing: -0.04em;
-            margin-bottom: 22px;
-            word-break: break-word;
-        }
-
-        .role-subtitle {
-            font-size: calc(clamp(1.25rem, 1.9vw, 1.6rem) * var(--ko-scale));
-            font-weight: 400;
-            color: var(--text-muted);
-            letter-spacing: -0.015em;
-            margin-bottom: 90px;
-            max-width: 46ch;
-        }
-
-        /* Asymmetric Layout Infrastructure.
-           Heavy rule above each section; the label sits flush right in the rail
-           so it reads as marginalia rather than a heading. */
-        .section-row {
+        /* Inline Spilling Content Drawer */
+        .spill-content {
+            width: 100%;
             display: grid;
-            grid-template-columns: 3.2fr 6.8fr;
-            border-top: 2px solid var(--rule-heavy);
-            padding-top: 22px;
-            margin-bottom: 90px;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            overflow: hidden;
+            transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin 0.3s ease;
+            margin-top: 0;
         }
 
-        .section-label {
-            position: sticky;
-            top: 16px;
-            align-self: start;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.35;
-            letter-spacing: -0.01em;
-            color: var(--accent);
-            text-align: right;
-            padding-right: 40px;
-            margin-bottom: 20px;
+        .spill-content > .card-inner {
+            min-height: 0;
+            overflow: hidden;
         }
 
-        .section-content {
-            /* Mirrors .section-label's padding-right, so the hairline sits in
-               40px of air on either side instead of being touched by the text. */
-            padding-left: 40px;
-            font-size: 1.3rem;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            color: var(--text-color);
-            min-width: 0;
+        .section-item.active .spill-content {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 0.75rem;
         }
 
-        /* Copy Block Adjustments */
-        .lead-paragraph {
-            font-size: calc(clamp(1.35rem, 1.9vw, 1.6rem) * var(--ko-scale));
-            line-height: 1.45;
-            font-weight: 400;
-            margin-bottom: 28px;
-            color: var(--text-color);
-            max-width: 60ch;
+        .section-item.active .card-inner {
+            padding: 1rem 0.5rem;
         }
 
-        .lead-paragraph:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Timeline & List Styles — hairline rules between items.
-           The date takes its own column so the years stack into one vertical
-           rail down the page: true marginalia rather than an inline right edge. */
-        .timeline-item {
-            display: grid;
-            grid-template-columns: var(--when-col) 1fr;
-            column-gap: 24px;
-            padding-bottom: 28px;
-            margin-bottom: 28px;
-            border-bottom: 1px solid var(--rule-hair);
-        }
-
-        .timeline-item:last-child {
-            padding-bottom: 0;
-            margin-bottom: 0;
-            border-bottom: none;
-        }
-
-        .timeline-item > .item-when {
-            grid-column: 1;
-            grid-row: 1;
-        }
-
-        .timeline-item > :not(.item-when) {
-            grid-column: 2;
-            min-width: 0;
-        }
-
-        /* The date is data: lighter, and figures in one column */
-        .item-when {
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            line-height: 1.7;
-            color: var(--text-faint);
-            white-space: nowrap;
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* The one ongoing role gets the marker. It appears once per language,
-           which is what makes it read as a mark rather than a colour scheme.
-           The negative margin lets the swipe bleed left so the date's text
-           still starts on the rail with the other six. */
-        .item-when.is-current {
-            background-color: var(--marker);
-            color: var(--marker-ink);
-            padding: 2px 8px;
-            margin-left: -8px;
-        }
-
-        .item-title {
-            font-weight: 600;
-            font-size: 1.35rem;
-            letter-spacing: -0.015em;
-            line-height: 1.25;
-            margin-bottom: 4px;
-        }
-
-        ::selection {
-            background-color: var(--marker);
-            color: var(--marker-ink);
-        }
-
-        .item-institution {
-            font-size: 1rem;
-            color: var(--accent);
-            margin-bottom: 14px;
-        }
-
-        .item-details {
-            list-style-type: none;
-        }
-
-        .item-details li {
-            position: relative;
-            padding-left: 24px;
-            margin-bottom: 10px;
-            font-size: calc(1.2rem * var(--ko-scale));
-            color: var(--text-muted);
-            max-width: 62ch;
-        }
-
-        .item-details li:last-child {
-            margin-bottom: 0;
-        }
-
-        .item-details li::before {
-            content: "\2192";
-            position: absolute;
-            left: 0;
-            color: var(--text-faint);
-        }
-
-        .work-note {
-            font-size: calc(1.15rem * var(--ko-scale));
-            color: var(--text-muted);
-            max-width: 62ch;
-        }
-
-        /* Links and Buttons — printed, not pressed.
-           No radius, no shadow, no lift. Hover is a flat inversion. */
-        .contact-list {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .contact-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            letter-spacing: -0.01em;
-            padding: 11px 20px;
-            border: 1px solid var(--text-color);
-            border-radius: 0;
+        /* Seamless Inner Content Card */
+        .card-inner {
             background-color: transparent;
-            transition: background-color 0.12s linear, color 0.12s linear;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            text-align: left;
+            position: relative;
+            transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .contact-link:hover,
-        .contact-link:focus-visible {
-            background-color: var(--text-color);
-            color: var(--bg-color);
+        /* Top Right Close 'x' Toggle */
+        .card-close-btn {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            line-height: 1;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.2rem;
+            transition: color 0.2s ease;
         }
 
-        /* Inline links: one signal, not three */
-        a:not(.contact-list a) {
-            color: inherit;
-            text-decoration: underline;
-            text-decoration-color: var(--accent);
-            text-decoration-thickness: 2px;
-            text-underline-offset: 3px;
-            padding: 0 2px;
-            transition: background-color 0.15s ease;
+        .card-close-btn:hover {
+            color: var(--accent-color);
         }
 
-        /* Hover is a highlight swipe and nothing else — no italic, no colour
-           shift, no underline change. */
-        a:not(.contact-list a):hover {
-            background-color: var(--link-hover-bg);
-        }
-
-        a:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        /* Footer Metadata */
-        footer {
-            margin-top: 120px;
-            border-top: 2px solid var(--rule-heavy);
-            padding-top: 22px;
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
+        .card-title {
+            font-family: var(--font-links);
             font-size: 1rem;
-            color: var(--text-faint);
+            line-height: 1.3;
+            font-weight: bold;
+            text-transform: lowercase;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            margin-bottom: 1rem;
+            letter-spacing: 0;
+            color: var(--accent-color);
+            padding-right: 1.5rem;
         }
 
-        .colophon {
-            margin-top: 18px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px 32px;
+        .card-body {
             font-size: 0.85rem;
-            line-height: 1.5;
-            color: var(--text-faint);
-        }
-
-        /* Language Toggle Switcher engine conditional views.
-           Hide-only: the visible side keeps whatever display its own rules give it. */
-        html:not([data-lang="ko"]) [lang="ko"] {
-            display: none;
-        }
-
-        html[data-lang="ko"] [lang="en"] {
-            display: none;
-        }
-
-        /* Hangul breaks on word boundaries, not mid-syllable-block */
-        html[data-lang="ko"] {
-            --ko-scale: 0.94;
-        }
-
-        html[data-lang="ko"] body {
-            word-break: keep-all;
-            overflow-wrap: break-word;
-        }
-
-        /* Hangul fills more of its em box than Latin, so it reads larger at the
-           same nominal size. Step it back and open the leading.
-           Scaled via a token, not `em` — `em` would resolve against each
-           parent's size rather than the element's own. */
-        html[data-lang="ko"] .lead-paragraph,
-        html[data-lang="ko"] .item-details li,
-        html[data-lang="ko"] .work-note,
-        html[data-lang="ko"] .role-subtitle {
             line-height: 1.65;
+            color: var(--text-color);
         }
 
-        html[data-lang="ko"] h1.site-title,
-        html[data-lang="ko"] .section-label,
-        html[data-lang="ko"] .item-title {
-            letter-spacing: -0.02em;
+        .card-body p {
+            margin-bottom: 0.5rem;
         }
 
-        /* Responsive Breakpoint for Mobile Re-arrangement */
-        @media (max-width: 868px) {
-            body {
-                /* Asymmetric margin: a wider left gutter so the rule reads as
-                   an inboard armature rather than clinging to the screen edge. */
-                padding: 24px 24px 60px 44px;
-                /* There is no two-column grid left to expose, so the armature
-                   states the other true thing: where the text block begins.
-                   Sits in the gutter, measured from the viewport edge, so it
-                   needs border-box rather than the desktop's content-box. */
-                background-image: linear-gradient(
-                    to right,
-                    transparent 21px,
-                    var(--rule-hair) 21px,
-                    var(--rule-hair) 22px,
-                    transparent 22px
-                );
-                background-origin: border-box;
-                background-clip: border-box;
-            }
-            .section-label {
-                position: static;
-            }
-            .top-bar {
-                margin-bottom: 40px;
-            }
-            .role-subtitle {
-                margin-bottom: 60px;
-            }
-            .section-row {
-                grid-template-columns: 1fr;
-                margin-bottom: 60px;
-                gap: 10px;
-            }
-            .section-label {
-                text-align: left;
-                padding-right: 0;
-                margin-bottom: 14px;
-            }
-            .section-content {
-                padding-left: 0;
-            }
-            /* Let the rules run wider than the text so they cross the armature,
-               the way the section border does on desktop. Negative margin moves
-               the box edges out; matching padding leaves the text where it was.
-               Item hairlines stay inside the text block, as they do on desktop. */
-            .section-row,
-            footer {
-                margin-left: -32px;
-                margin-right: -12px;
-                padding-left: 32px;
-                padding-right: 12px;
-            }
-            .timeline-item {
-                grid-template-columns: 1fr;
-                row-gap: 2px;
-            }
-            .timeline-item > .item-when,
-            .timeline-item > :not(.item-when) {
-                grid-column: 1;
-            }
-            .timeline-item > .item-when {
-                grid-row: auto;
-            }
-            .item-when.is-current {
-                justify-self: start;
-                margin-left: 0;
-            }
-            footer {
-                flex-direction: column;
-                gap: 15px;
-                margin-top: 80px;
-            }
+        .card-body a {
+            color: var(--accent-color);
+            text-decoration: underline;
+            text-underline-offset: 3px;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            * { transition-duration: 0.01ms !important; }
+        .card-label {
+            font-family: var(--font-links);
+            font-size: 0.85rem;
+            font-weight: normal;
+            text-transform: lowercase;
+            letter-spacing: 0;
         }
 
-        /* A CV gets printed. Force the light ground regardless of the reader's
-           theme, drop the interface, and keep entries off page breaks. */
-        @page {
-            margin: 18mm;
+        iframe[src*="music.apple.com"] {
+            margin-top: 0.8rem;
         }
 
-        @media print {
-            :root {
-                --bg-color: #FFFFFF;
-                --text-color: #000000;
-                --text-muted: #333333;
-                --text-faint: #555555;
-                --rule-heavy: #000000;
-                --rule-hair: #AAAAAA;
-                --accent: #000000;
-                --link-hover-bg: transparent;
-            }
-            body {
-                padding: 0;
-                max-width: none;
-                background-image: none;
-                font-size: 11pt;
-            }
-            .top-bar {
-                display: none;
-            }
-            .section-label {
-                position: static;
-            }
-            .section-content {
-                padding-left: 24pt;
-            }
-            h1.site-title {
-                font-size: 32pt;
-            }
-            .role-subtitle {
-                margin-bottom: 24pt;
-            }
-            .section-row {
-                margin-bottom: 20pt;
-                break-inside: avoid;
-            }
-            .timeline-item {
-                break-inside: avoid;
-            }
-            /* The marker will not survive greyscale, so it becomes a rule */
-            .item-when.is-current {
-                background: none;
-                color: inherit;
-                padding: 2px 0;
-                margin-left: 0;
-                border-bottom: 2px solid #000000;
-            }
-            a:not(.contact-list a) {
-                text-decoration-color: #000000;
-            }
-            .contact-link {
-                border-color: #000000;
-            }
-            footer {
-                margin-top: 24pt;
-            }
+        /* Small Footer Credits */
+        footer {
+            margin-top: 3.5rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: -0.01em;
+            text-align: center;
+            opacity: 0.8;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
 
-    <!-- Language swap: shows the language you are not reading -->
-    <div class="top-bar">
-        <button class="lang-swap" id="lang-swap" type="button" onclick="toggleLanguage()"></button>
+    <div class="container">
+        <!-- ASCII Art Header (Uncopiable) -->
+        <pre class="ascii-art">
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⡡⢞⣿⣋⣷⣾⣦⣤⣾⣿⣿⣛⣯⣶⣶⣶⣿⣶⣶⣿⣿⣿⠁⢈⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⢳⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣸⣿⣿⣿⣿⣿⣿⠟⠋⢡⣿⣿⣿⡟⢸⣿⣿⣿⣿⢿⣿⣿⣯⣴⣾⠿⠿⢿⣿⣿⣿⣿⣿⣿⣷⡀⠀⡄⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢘⣽⣿⣿⣿⣿⠟⢁⣤⣴⣿⣿⣿⠟⢀⣾⠿⢛⣿⣿⣿⡿⣟⣯⣦⣤⣉⣿⣿⣯⣿⣿⣿⣿⢷⡙⣧⢀⣿⡀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⡿⠋⢡⠆⣼⣿⣿⠿⣛⣥⡶⠋⠀⢠⣾⣿⣿⣿⣿⡿⠟⠛⠉⠻⣿⣿⣿⣿⣿⣿⣿⣎⡇⣼⣿⡟⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢸⠏⠈⢫⠴⢋⣸⣷⣭⢿⡿⣿⢻⣿⠀⣼⠀⣾⣻⣿⠿⠛⠋⠀⠀⠀⠀⢀⡿⢿⣿⣿⣿⣿⣿⡿⠋⣹⣿⣧⠴⠆⠀
+⠀⠀⠀⠀⠀⠀⠀⣾⠀⢰⣿⣿⣿⡿⣩⢃⣾⣿⣿⣾⣿⡄⣿⣤⣿⣿⣿⢧⣀⠀⠀⠀⢀⡠⠟⢒⣿⣿⣿⣿⣿⣿⠁⢠⣿⣿⣿⣷⡀⠀
+⠀⠀⠀⢠⠀⣴⠀⣿⠀⡟⢻⣿⣿⣷⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⡉⠉⣠⣼⣤⠾⣯⣅⣿⣿⢿⣴⢿⢀⣾⣿⣿⣿⣿⣿⣤
+⠀⠀⠀⢸⣠⣇⠀⢿⢸⢱⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣟⣙⠻⠿⠿⠿⠛⠋⢠⣿⣧⡆⠸⠿⣿⣿⣿⣇⢸⣿⣿⣿⡿⣿⢿⡏⠉
+⠀⠀⠀⢸⣿⣿⡆⠸⣾⣿⣿⣿⣿⣿⣿⣿⠿⣿⣿⣿⠯⢉⣭⠿⠿⠂⠀⠀⠀⠀⠀⠀⠸⠿⠗⠀⠀⢻⣿⣿⣿⡄⣿⣿⠏⠀⣯⠀⡇⠀
+⠀⠀⠀⠈⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣧⡜⠉⢉⣾⣿⣯⡀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⢸⣿⣿⣿⣷⣼⣿⠀⠀⣿⠀⡇⠀
+⠀⠀⠀⠀⢻⣿⣿⡆⢸⣿⣿⠿⣿⣿⣿⣿⣭⡭⠓⠺⠽⢯⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠈⢲⠆⠀⠀⣾⣿⠙⠿⣯⣿⠏⠀⠀⢹⠀⠇⠀
+⠀⠀⠀⠀⠸⢿⣿⣇⢸⣿⡽⣶⡦⣽⣿⣧⡉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠋⠀⠀⣼⣿⣿⡇⠐⣄⡙⠢⡀⠀⢸⡇⠀⠀
+⠀⠀⡀⠀⢰⠻⣿⣿⢸⣿⣷⡀⠀⠏⢹⣻⣝⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣀⠃⠉⢦⡑⢄⠈⡇⠀⠀
+⠀⠀⠀⠀⣼⠀⣿⡏⢸⣿⣿⣿⣶⣤⣤⣘⣚⢿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⢿⣿⣿⡟⢆⠀⠀⠑⢌⢳⡇⢠⠀
+⠀⠀⢀⣾⡏⢀⣿⢃⣾⣿⣿⣿⣿⣿⣿⡟⣿⣿⡻⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⡜⣿⣿⣿⣮⣆⠀⠀⠈⢣⠳⣼⠀
+⢀⣴⣿⡿⠁⠸⠋⠾⢿⣻⣿⣿⢧⣿⣿⠁⠈⢻⣿⣬⡓⠤⣙⣲⣶⣤⣤⣄⣀⣀⣀⣠⣾⣿⣿⣿⢿⣇⢸⣿⣿⣿⣿⣀⠤⠖⣉⡴⢻⠀
+⣋⠉⢀⡤⣴⣶⠾⠿⠿⠿⠟⢁⣾⣿⣿⠀⠀⢀⠙⠿⢿⣦⣄⣀⣁⣉⣉⣙⡿⣿⣿⣿⣿⣿⣿⣿⡄⠙⣧⣿⣿⣿⣿⣆⠤⣴⣿⡇⡞⠀
+⠤⢒⣋⣉⣀⣀⠤⠤⣄⣀⣀⣾⣿⢏⠟⡄⠀⠈⠑⠦⣀⠈⠻⢿⣿⣿⣿⣯⠓⣽⣿⣯⣿⣿⣿⣿⣿⣆⡈⢿⣿⣿⡏⢧⡀⠈⢿⣠⠃⠀
+⣿⣽⣷⡶⢶⣷⣾⣿⠿⢫⣿⢟⡙⣟⠀⠰⡀⠀⠀⠀⠀⠉⠒⢄⠙⢿⣿⣿⣴⣿⣿⣿⣽⣿⣿⣿⣿⡿⠉⡟⡿⣿⣇⠈⣷⡄⠀⢫⠀⠀
+⣿⣿⣿⣷⡸⠟⠋⠁⣠⣾⠁⢈⠟⠌⢳⣄⡱⡀⠀⠀⠀⠀⠠⢄⠑⢄⠉⠻⣿⣿⣿⣿⣟⣿⣿⣿⡿⠁⠀⢣⡼⠘⢿⣆⢿⣿⣄⠀⠆⠀
+⣿⠟⣋⣵⠖⢂⣴⣾⣿⣿⠔⠁⠀⠈⢦⠱⣍⢧⡀⠀⠀⠀⠑⢄⠙⠢⡑⢄⠘⣿⣿⣿⣿⣸⣿⣿⡁⢀⣴⣿⡇⠀⠈⣿⡄⠈⠙⠷⣾⡐
+⣷⢿⣯⣤⣶⡏⣿⣿⣿⠇⠀⠀⠀⡀⠈⠱⡈⠲⢵⣄⢶⣤⡀⠀⠱⠊⡠⠊⣀⣼⣿⣿⣿⣇⣹⣿⣿⣿⣿⣿⣖⣂⠁⢸⡇⠀⠀⠀⠙⣷
+⣑⣻⣿⣿⣿⣿⣿⣿⣿⠀⠀⠈⠳⣅⠀⠀⠘⢂⠀⠉⠢⣝⢮⡷⢠⠎⣠⣾⣿⣿⣿⣿⣿⣿⣼⣿⣿⠇⠈⣿⠁⡜⢉⣿⢧⡀⠀⠀⠀⠸
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⢀⠎⠀⠑⠀⠀⠀⠀⠀⠀⠈⢻⡤⢃⣴⣿⣿⣿⣿⣿⣿⣿⣿⡏⢿⣿⣖⣼⢃⠞⣠⣿⠏⠀⠉⣦⡀⠀⠀
+⠘⢿⣿⣿⣿⣷⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⢻⣿⣿⡿⣿⣿⡻⣿⣻⣿⣿⠼⠋⢁⣄⢋⡴⠋⠁⠀⠀⠀⠉⣧⠀⠀
+        </pre>
+
+        <!-- Item 1 -->
+        <div class="section-item" id="item-2">
+            <button class="trigger-btn" onclick="toggleSpill('item-2', event)">if guns were more popular in our culture (…)</button>
+            <div class="spill-content">
+                <div class="card-inner">
+                    <button class="card-close-btn" onclick="closeSpill('item-2', event)">&times;</button>
+                    <h2 class="card-title">if guns were more popular in our culture (…)</h2>
+                    <div class="card-body">
+                        <p>⁕  키도 수지 케이 外 아시는 닉</p>
+                        <p>⁕  성인 여성</p>
+                        <p>⁕  일상 셀털(heavy) 매체 소비(책 영상 음악 2D 포뮬라원) etc …</p>
+                        <p>⁕  bub free 용건 <a href="https://open.kakao.com/me/beatpoetry" target="_blank" rel="noopener">→ open kakao</a></p><br>
+                        <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/kr/album/stardance/1884160493?i=1884160504"></iframe>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="section-item" id="item-3">
+            <button class="trigger-btn" onclick="toggleSpill('item-3', event)"> i’d look in its hole, blow my cheeks. <i>thank you,</i> i’d say, <i>thank you.</i>*</button>
+            <div class="spill-content">
+                <div class="card-inner">
+                    <button class="card-close-btn" onclick="closeSpill('item-3', event)">&times;</button>
+                    <h2 class="card-title">i’d look in its hole, blow my cheeks. <i>thank you,</i> i’d say, <i>thank you.</i>*</h2>
+                    <div class="card-body">
+                        <p><span class="card-label">sports</span>&nbsp;&nbsp;&nbsp;&nbsp;한화 이글스 맥라렌 🧡team papaya🧡</p>
+                        <p><span class="card-label">films books music</span>&nbsp;&nbsp;&nbsp;&nbsp;주로 외산 소비합니다 …</p>
+                        <p><span class="card-label">series</span>&nbsp;&nbsp;&nbsp;&nbsp;HBO EUPHORIA 外 여러 미드 영드 OTT 시리즈(불량연애 등) …</p>
+                        <p><span class="card-label">kpop</span>&nbsp;&nbsp;&nbsp;&nbsp;h2h etc …</p>
+                        <p><span class="card-label">2d</span>&nbsp;&nbsp;&nbsp;&nbsp;HxH(⛓️🕷️) BLEACH CHAINSAW MAN GIRLS BAND CRY(トゲナシトゲアリ) BANG DREAM!! etc …</p><br>
+                        <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/kr/album/the-red-line/1061745281?i=1061745288"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>@pitfieldst on X. last updated september 2026. *jack underwood.</footer>
     </div>
 
-    <!-- Header Section without strict structural header borders -->
-    <header>
-        <div class="site-kicker">yuutalkwaytoomuch.pages.dev</div>
-        <h1 class="site-title">
-            <span lang="en">Yugyoung Joan Sung</span>
-            <span lang="ko">성유경입니다!</span>
-        </h1>
-
-        <div class="role-subtitle" lang="en">Hello! I&rsquo;m an educator · independent researcher based in Sejong, KR. <a href="https://instagram.com/yuutalkwaytoomuch" title="My Instagram">Instagram</a></div>
-        <div class="role-subtitle" lang="ko">안녕하세요! 세종에서 일하는 교육자이자 독립연구자예요. <a href="https://instagram.com/yuutalkwaytoomuch" title="인스타그램 계정">인스타그램</a></div>
-    </header>
-
-    <main>
- <!-- Contact Section / Integrated Action Elements -->
-        <div class="section-row" style="margin-bottom: 40px;">
-            <div class="section-label" lang="en">Connect</div>
-            <div class="section-label" lang="ko">연락처</div>
-            <div class="section-content">
-                <ul class="contact-list" lang="en">
-                    <li><a href="mailto:yuutwtm@gmail.com" class="contact-link">Email <span aria-hidden="true">&rarr;</span></a></li>
-                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">Blog (KR) <span aria-hidden="true">&rarr;</span></a></li>
-                </ul>
-                <ul class="contact-list" lang="ko">
-                    <li><a href="mailto:yuutalkwaytoomuch@gmail.com" class="contact-link">이메일 <span aria-hidden="true">&rarr;</span></a></li>
-                    <li><a href="https://blog.naver.com/loveisalaserquest" target="_blank" class="contact-link">블로그 <span aria-hidden="true">&rarr;</span></a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- About Section -->
-        <div class="section-row">
-            <div class="section-label" lang="en">About</div>
-            <div class="section-label" lang="ko">소개</div>
-            <div class="section-content">
-                <div lang="en">
-                    <p class="lead-paragraph">I believe in the accountability of us adults in making our students ask better questions; in convincing them that some criticisms are indeed constructive; in providing them the adequate introduction into the public sphere; in, ultimately, engaging them with the world that will be theirs to protect.</p>
-                    <p class="lead-paragraph">My methods include, but are not limited to, critical reasoning, essay writing, designing presentations, all the while embracing technological advancements relevant to our end goal.</p>
-                </div>
-                <div lang="ko">
-                    <p class="lead-paragraph">학생들이 더 좋은 질문을 던지게 하는 것, 어떤 비판은 정말로 도움이 된다는 걸 납득시키는 것, 공론장에 처음 발을 들이는 길을 제대로 안내해 주는 것. 그래서 결국엔 언젠가 자기가 지켜야 할 세상과 마주 서게 하는 것. 저는 이게 다 어른이 져야 할 몫이라고 생각해요.</p>
-                    <p class="lead-paragraph">주로 쓰는 방법은 비판적으로 생각하기, 에세이 쓰기, 발표 만들기예요. 물론 여기에만 매달리지는 않고요. 목표에 도움이 된다면 새로운 기술도 얼마든지 가져다 씁니다.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Experience Section -->
-        <div class="section-row">
-            <div class="section-label" lang="en">Experience</div>
-            <div class="section-label" lang="ko">경력</div>
-            <div class="section-content">
-                <!-- English Experience -->
-                <div lang="en">
-                    <div class="timeline-item">
-                        <div class="item-when is-current">2024 — present</div>
-                        <div class="item-title">Middle School Teacher</div>
-                        <div class="item-institution">Haemil Middle School · Sejong, KR</div>
-                        <ul class="item-details">
-                            <li>Executed international exchange programmes with <span style="font-weight: 600;">Thai</span> and <span style="font-weight: 600;">DoDEA</span> schools. (2026-)</li>
-                            <li>Planned and executed multiple <span style="font-weight: 600;">library</span> and <span style="font-weight: 600;">literacy</span> education-adjacent programmes. (2024-2025)</li>
-                            <li>Various experiences with organising and instructing <span style="font-weight: 600;">student-directed</span> citizenship related projects. (2024-)</li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="item-when">2022</div>
-                        <div class="item-title">Student Ambassador</div>
-                        <div class="item-institution">Korea National University of Education (KNUE) · Cheongju</div>
-                        <ul class="item-details">
-                            <li>Directed and produced various Instagram <a href="https://www.instagram.com/p/Ce2twQcLni-">events</a> <a href="https://www.instagram.com/p/CkFhl_1pBiE/">and</a> <a href="https://www.instagram.com/p/CkFgfZspMLx">carousels</a> regarding <a href="https://www.instagram.com/p/CeVLadGJCsM">the university</a> and <a href="https://www.instagram.com/p/CksGdgVpldX">related</a> <a href="https://www.instagram.com/p/CiJVyX9JarO">topics.</a></li>
-                            <li><a href="https://www.instagram.com/p/Cnf0pZQyeAG/">Interviewed</a> <a href="https://www.instagram.com/p/Cnf0EVAyYPI/">other ambassadors</a> as a means to engage the public with the university.</li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="item-when">2020 - 2021</div>
-                        <div class="item-title">Student Reporter - The UIC Scribe</div>
-                        <div class="item-institution">Yonsei University · Seoul</div>
-                        <ul class="item-details">
-                            <li>Contributed articles for the UIC Scribe, an all-English biannual newsletter of Underwood International College, regarding affairs within and outside Yonsei. <a href="https://yonseiuicscribe.netlify.app/2020/06/2020-06-18-the-class-of-covid-19-from-a-uic-freshmans-perspective/">Article One</a> <a href="https://yonseiuicscribe.netlify.app/2020/04/2020-04-27-covid-19-report-the-covid-19-syndrome-whats-new-and-whats-not/">Article Two</a> (2020-2021)</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Korean Experience -->
-                <div lang="ko">
-                    <div class="timeline-item">
-                        <div class="item-when is-current">2024 — 현재</div>
-                        <div class="item-title">중등교사</div>
-                        <div class="item-institution">해밀중학교 · 세종</div>
-                        <ul class="item-details">
-                            <li><span style="font-weight: 600;">태국</span>과 <span style="font-weight: 600;">DoDEA</span>(미국 국방부 산하 학교) 학교들이랑 국제교류 프로그램을 운영하고 있어요. (2026-)</li>
-                            <li><span style="font-weight: 600;">도서관</span>과 <span style="font-weight: 600;">문해력</span> 교육에 맞닿은 프로그램을 여러 개 기획하고 운영했어요. (2024-2025)</li>
-                            <li><span style="font-weight: 600;">학생들이 직접 이끄는</span> 시민성 프로젝트를 여러 차례 꾸리고 지도했고요. (2024-)</li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="item-when">2022</div>
-                        <div class="item-title">학생 홍보대사</div>
-                        <div class="item-institution">한국교원대학교 · 청주</div>
-                        <ul class="item-details">
-                            <li>학교와 그 주변 이야기를 다루는 인스타그램 <a href="https://www.instagram.com/p/Ce2twQcLni-">이벤트</a><a href="https://www.instagram.com/p/CkFhl_1pBiE/">와</a> <a href="https://www.instagram.com/p/CkFgfZspMLx">카드뉴스</a>를 <a href="https://www.instagram.com/p/CeVLadGJCsM">기획</a>하고 <a href="https://www.instagram.com/p/CksGdgVpldX">직접</a> <a href="https://www.instagram.com/p/CiJVyX9JarO">만들었어요.</a></li>
-                            <li>다른 홍보대사들을 <a href="https://www.instagram.com/p/Cnf0pZQyeAG/">인터뷰</a>해서 <a href="https://www.instagram.com/p/Cnf0EVAyYPI/">학교를 더 많은 사람들에게</a> 알리는 콘텐츠도 만들었고요.</li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="item-when">2020 - 2021</div>
-                        <div class="item-title">학생기자 - The UIC Scribe</div>
-                        <div class="item-institution">연세대학교 · 서울</div>
-                        <ul class="item-details">
-                            <li>언더우드국제대학에서 반년마다 나오는 영자지 The UIC Scribe에 연세대 안팎의 이야기를 기사로 썼어요. <a href="https://yonseiuicscribe.netlify.app/2020/06/2020-06-18-the-class-of-covid-19-from-a-uic-freshmans-perspective/">기사 1</a> <a href="https://yonseiuicscribe.netlify.app/2020/04/2020-04-27-covid-19-report-the-covid-19-syndrome-whats-new-and-whats-not/">기사 2</a> (2020-2021)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Skills & Expertise Section -->
-        <div class="section-row">
-            <div class="section-label" lang="en">Skills &amp; Expertise</div>
-            <div class="section-label" lang="ko">관심분야</div>
-            <div class="section-content">
-                <div lang="en">
-                    <p class="lead-paragraph">Philosophy is fundamentally the rigorous practice of questioning and being questioned. Can you ask the right questions? Can you effectively defend your points? How will you react when your world is challenged? True critical thinking demands nothing less than genuine openness to being wrong.</p>
-                    <ul class="item-details" style="margin-bottom: 40px;">
-                        <li>Critical reading</li>
-                        <li>Media literacy education</li>
-                        <li>Facilitating formal discussions (BP Debate, Model United Nations) and non-formal discussions</li>
-                    </ul>
-
-                    <p class="lead-paragraph">Messages matter. Delivery matters too. I make extensive use of both textual and visual language.</p>
-                    <ul class="item-details">
-                        <li>Essay writing</li>
-                        <li>Student-directed projects</li>
-                        <li>Contents production through graphic tools (Adobe, Microsoft Powerpoint, Figma, Nano Banana)</li>
-                        <li>Contents production through AI tools (Vibe coding using Claude and Gemini)</li>
-                    </ul>
-                </div>
-
-                <div lang="ko">
-                    <p class="lead-paragraph">철학은 결국 묻고, 또 되물음을 받는 일을 아주 성실하게 해내는 거예요. 제대로 된 질문을 던질 수 있나요? 내 주장을 설득력 있게 지켜낼 수 있나요? 내가 믿던 세계가 흔들릴 때 어떻게 반응하나요? 진짜 비판적 사고는 내가 틀렸을 수도 있다는 걸 정말로 받아들일 수 있어야 시작돼요.</p>
-                    <ul class="item-details" style="margin-bottom: 40px;">
-                        <li>비판적으로 읽기</li>
-                        <li>미디어 리터러시 교육</li>
-                        <li>토론 진행 — BP 디베이트나 모의유엔 같은 형식 토론부터 자유로운 대화까지</li>
-                    </ul>
-
-                    <p class="lead-paragraph">메시지도 중요하지만, 그걸 어떻게 전하느냐도 그만큼 중요하잖아요. 그래서 글과 시각 언어를 둘 다 적극적으로 쓰는 편이에요.</p>
-                    <ul class="item-details">
-                        <li>에세이 쓰기</li>
-                        <li>학생이 직접 이끄는 프로젝트</li>
-                        <li>그래픽 도구로 콘텐츠 만들기 (Adobe, Microsoft PowerPoint, Figma, Nano Banana)</li>
-                        <li>AI 도구로 콘텐츠 만들기 (Claude · Gemini로 바이브 코딩)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Education Section -->
-        <div class="section-row">
-            <div class="section-label" lang="en">Education</div>
-            <div class="section-label" lang="ko">학력</div>
-            <div class="section-content">
-                <div lang="en">
-                    <div class="timeline-item">
-                        <div class="item-when">2022 — 2024</div>
-                        <div class="item-title">Bachelor of Education in Ethics Education - B.Ed</div>
-                        <div class="item-institution" style="margin-bottom: 0;">Korea National University of Education</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="item-when">2020 — 2022</div>
-                        <div class="item-title">Quantitative Risk Management (Major)<br>English Language &amp; Literature (Minor)</div>
-                        <div class="item-institution" style="margin-bottom: 0;">Underwood International College, Yonsei University</div>
-                    </div>
-                </div>
-
-                <div lang="ko">
-                    <div class="timeline-item">
-                        <div class="item-when">2022 — 2024</div>
-                        <div class="item-title">윤리교육과 학사 (B.Ed)</div>
-                        <div class="item-institution" style="margin-bottom: 0;">한국교원대학교</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="item-when">2020 — 2022</div>
-                        <div class="item-title">계량위험관리 전공<br>영어영문학 부전공</div>
-                        <div class="item-institution" style="margin-bottom: 0;">연세대학교 언더우드국제대학</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Skills Checklist Section -->
-        <div class="section-row">
-            <div class="section-label" lang="en">Tools</div>
-            <div class="section-label" lang="ko">기술</div>
-            <div class="section-content">
-                <ul class="item-details" lang="en">
-                    <li>Korean (Native)</li>
-                    <li>English (Proficient)</li>
-                    <li>Adobe Photoshop (Proficient)</li>
-                </ul>
-                <ul class="item-details" lang="ko">
-                    <li>한국어 (모어)</li>
-                    <li>영어 (능숙)</li>
-                    <li>Adobe Photoshop (능숙)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Selected Work Section -->
-        <div class="section-row">
-            <div class="section-label" lang="en">Works</div>
-            <div class="section-label" lang="ko">주요 작업</div>
-            <div class="section-content">
-                <div lang="en">
-                    <div class="timeline-item">
-                        <div class="item-when">2026</div>
-                        <div class="item-title"><a href="https://haemil-libra.vercel.app">Money Can’t Buy Us Our Dreams</a></div>
-                        <p class="work-note">A visual novel based on Michael Sandel’s book <i>What Money Can't Buy</i>, envisioning students in a virtual reality game wherein everything can be bought &amp; challenging them to pose ethically meaningful questions in the context of their respective future careers.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="item-when">2026</div>
-                        <div class="item-title"><a href="https://26actionforpeace.pages.dev" target="_blank">2026 Sejong RCE ESD International Youth Camp — Peace Group</a></div>
-                        <p class="work-note">The Peace Group’s site for the 2026 Sejong RCE ESD International Youth Camp, where I served as the group’s supervising teacher.</p>
-                    </div>
-                </div>
-
-                <div lang="ko">
-                    <div class="timeline-item">
-                        <div class="item-when">2026</div>
-                        <div class="item-title"><a href="https://haemil-libra.vercel.app">Money Can’t Buy Us Our Dreams</a></div>
-                        <p class="work-note">마이클 샌델의 『돈으로 살 수 없는 것들』에서 출발한 비주얼 노벨이에요. 뭐든 돈으로 살 수 있는 가상현실 게임 안에 학생들을 데려다 놓고, 각자 꿈꾸는 진로에서 윤리적으로 의미 있는 질문을 직접 던져 보게 합니다.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="item-when">2026</div>
-                        <div class="item-title"><a href="https://26actionforpeace.pages.dev" target="_blank">2026 세종RCE 지속가능발전교육 국제청소년캠프 — 평화분과</a></div>
-                        <p class="work-note">2026 세종RCE 지속가능발전교육 국제청소년캠프에서 평화분과 지도교사를 맡으면서 만든 분과 웹사이트예요.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
- </main>
-    <!-- Seamless Footer integration -->
-    <footer>
-        <div>
-            <span lang="en">Last Updated: July 2026</span>
-            <span lang="ko">최근 업데이트: 2026년 7월</span>
-        </div>
-        <div>
-            <span lang="en">© 2026 Yugyoung Joan Sung</span>
-            <span lang="ko">© 2026 성유경</span>
-        </div>
-    </footer>
-
-    <!-- Colophon: how the page itself is made -->
-    <div class="colophon">
-        <div>
-            <span lang="en">Set in Franklin Gothic Std &amp; Pretendard</span>
-            <span lang="ko">Franklin Gothic Std &amp; Pretendard로 조판</span>
-        </div>
-    </div>
-
-    <!-- Core Interactive Script -->
     <script>
-        function setLanguage(lang) {
-            document.documentElement.setAttribute('data-lang', lang);
-            try { localStorage.setItem('preferred-lang', lang); } catch (e) {}
+        function toggleSpill(id, event) {
+            event.stopPropagation();
+            const targetItem = document.getElementById(id);
 
-            // The button offers the other language. No lang attribute on it —
-            // the hide-only rules key off [lang], so lang="ko" would hide the
-            // button itself whenever the page is in English.
-            const btn = document.getElementById('lang-swap');
-            if (!btn) return;
-            if (lang === 'ko') {
-                btn.textContent = 'English';
-                btn.setAttribute('aria-label', 'Read this page in English');
-            } else {
-                btn.textContent = '한국어';
-                btn.setAttribute('aria-label', '한국어로 보기');
+            // Close all other open sections
+            document.querySelectorAll('.section-item').forEach(item => {
+                if (item.id !== id) {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Toggle selected section
+            targetItem.classList.toggle('active');
+        }
+
+        function closeSpill(id, event) {
+            event.stopPropagation();
+            const targetItem = document.getElementById(id);
+            if (targetItem) {
+                targetItem.classList.remove('active');
             }
         }
 
-        function toggleLanguage() {
-            const now = document.documentElement.getAttribute('data-lang') === 'ko' ? 'ko' : 'en';
-            setLanguage(now === 'ko' ? 'en' : 'ko');
+        // Close automatically when clicking anywhere outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.section-item')) {
+                document.querySelectorAll('.section-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+        });
+    </script>
+    <script>
+        // A scrollbar on the right pulls the centered .container left by half its width.
+        // Compensate by growing left padding by the scrollbar's full width, and only
+        // while a scrollbar is actually present — no permanent reserved space either side.
+        function updateScrollbarCompensation() {
+            const hasScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+            if (hasScrollbar) {
+                const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                document.body.style.paddingLeft = `calc(1rem + ${scrollbarWidth}px)`;
+            } else {
+                document.body.style.paddingLeft = '';
+            }
         }
 
-        // The head script already picked the language; sync the button to it.
-        window.addEventListener('DOMContentLoaded', () => {
-            setLanguage(document.documentElement.getAttribute('data-lang') === 'ko' ? 'ko' : 'en');
+        // The drawer's height (and therefore the document's scrollHeight) animates
+        // continuously over the 0.4s transition, so the scrollbar can appear or
+        // disappear mid-animation, not just at the end. Re-run the check every
+        // frame for the duration of the transition so the compensation tracks it
+        // in real time instead of snapping into place afterwards.
+        let scrollbarRAF = null;
+        function scrollbarSyncLoop() {
+            updateScrollbarCompensation();
+            scrollbarRAF = requestAnimationFrame(scrollbarSyncLoop);
+        }
+
+        document.querySelectorAll('.spill-content').forEach(el => {
+            el.addEventListener('transitionrun', () => {
+                if (scrollbarRAF === null) {
+                    scrollbarRAF = requestAnimationFrame(scrollbarSyncLoop);
+                }
+            });
+            el.addEventListener('transitionend', () => {
+                if (scrollbarRAF !== null) {
+                    cancelAnimationFrame(scrollbarRAF);
+                    scrollbarRAF = null;
+                }
+                updateScrollbarCompensation();
+            });
         });
+
+        window.addEventListener('resize', updateScrollbarCompensation);
+        updateScrollbarCompensation();
     </script>
 </body>
 </html>
